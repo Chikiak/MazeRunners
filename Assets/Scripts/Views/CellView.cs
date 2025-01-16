@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Core.Interfaces;
 using Core.Interfaces.Entities;
+using Core.Models.Traps;
 using Unity.VisualScripting;
 using Unity.XR.OpenVR;
 using UnityEngine;
@@ -19,6 +20,29 @@ namespace Views
         [SerializeField] private GameObject SelectableLayout;
         private List<GameObject> _tokensView = new List<GameObject>();
         public Action<(int,int)> OnCellClicked;
+        [SerializeField] private List<TrapTypes> _trapOrder;
+        [SerializeField] private List<Sprite> _trapSprites;
+        private static Dictionary<TrapTypes, Sprite> _trapSpritesDict;
+        
+        private void Awake()
+        {
+            LoadDictionary();
+        }
+        private void LoadDictionary()
+        {
+            _trapSpritesDict = new Dictionary<TrapTypes, Sprite>();
+            if (_trapSprites.Count != _trapOrder.Count) throw new Exception($"Trap view bad setup");
+            for (int i = 0; i < _trapSprites.Count; i++)
+            {
+                _trapSpritesDict.Add(_trapOrder[i], _trapSprites[i]);
+            }
+        }
+
+        private static Sprite GetTrapSprite(TrapTypes trapType)
+        {
+            Sprite trapSprite = _trapSpritesDict[trapType];
+            return trapSprite;
+        }
         
         public void UpdateCell(ICell cell)
         {
@@ -32,7 +56,7 @@ namespace Views
             {
                 walls[i].SetActive(wallStates[i]);
             }
-
+            
             if (cell.Selectable)
             {
                 SelectableLayout.SetActive(true);
@@ -44,7 +68,14 @@ namespace Views
                 SelectableLayout.SetActive(false);
                 handle.OnCellSelected -= HandleSelectedCell;
             }
+            
             UpdateTokensInCell(cell.Tokens);
+            
+            var customFloorImage = customFloor.GetComponent<Image>();
+            customFloorImage.color = new Color(1f, 1f, 1f, 0f);
+            if (cell.Type == TrapTypes.NoTrap) return;
+            customFloorImage.color = new Color(1f, 1f, 1f, 1f);
+            customFloorImage.sprite = GetTrapSprite(cell.Type);
         }
         private void UpdateTokensInCell(List<ITokenController> tokens)
         {
@@ -57,7 +88,7 @@ namespace Views
             }
             foreach (var tokenController in tokens)
             {
-                //Agregar Tokens
+                //Agregar tokens
                 var newToken = Instantiate(tokenController.Model.TokenPrefab, tokensGrid.transform);
                 _tokensView.Add(newToken);
                 tokenController.SetView(newToken.GetComponent<ITokenView>());
@@ -83,7 +114,6 @@ namespace Views
             }
             _tokensView.Clear();
         }
-
         private void HandleSelectedCell((int, int) position)
         {
             OnCellClicked?.Invoke(position);

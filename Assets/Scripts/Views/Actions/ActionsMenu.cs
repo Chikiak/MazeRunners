@@ -62,6 +62,11 @@ namespace Views.Actions
         {
             if (obj == _moveButton)
             {
+                if (!GameManager.SelectedToken.IsAlive)
+                {
+                    Debug.Log("Selected token is dead");
+                    return;
+                }
                 if (GameManager.SelectedToken.Model.RemainingMovs <= 0)
                 {
                     Debug.Log("No more moves left");
@@ -81,6 +86,11 @@ namespace Views.Actions
         {
             if (obj == _abilityButton)
             {
+                if (!GameManager.SelectedToken.IsAlive)
+                {
+                    Debug.Log("Selected token is dead");
+                    return;
+                }
                 GameManager.ChangeActualAction(ActionTypes.UseAbility);
                 GameManager.SelectedToken.UseAbility();
             }

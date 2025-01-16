@@ -1,6 +1,7 @@
 ﻿using System;
 using Core.Interfaces;
 using Core.Models;
+using Core.Models.Traps;
 using UnityEngine;
 using Random = System.Random;
 
@@ -20,13 +21,13 @@ namespace Core.Generators
             _random = new Random();
             _cycleChance = cycleChance;
             _size = size;
-            _trapsGenerator = new TrapsGenerator(size, _random, 3, trapChance);
+            _trapsGenerator = new TrapsGenerator(size, _random, 1, trapChance);
         }
 
         #region GenerateFace
         public ICell[,] GenerateFace()
         {
-            int[,] trapMatrix = _trapsGenerator.GetNewTrapMatrix();
+            TrapTypes[,] trapMatrix = _trapsGenerator.GetNewTrapMatrix();
             int size = _size;
             var cells = new ICell[size, size];
             var visited = new bool[size, size];
@@ -35,15 +36,7 @@ namespace Core.Generators
             {
                 for (int y = 0; y < size; y++)
                 {
-                    if (trapMatrix[x, y] == 0)
-                    {
-                        cells[x, y] = new Cell((x, y));
-                    }
-                    else
-                    {
-                        //ToDo
-                        //Crear una nueva Trampa del tipo correspondiente en esa posicion
-                    }
+                    cells[x, y] = CellFactory.NewCell(trapMatrix[x, y], (x, y));
                 }
             }
             

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Controllers;
 using Core.Models;
@@ -12,6 +13,7 @@ using MazeView = Views.MazeView;
 
 public class GameManager : MonoBehaviour
 {
+    #region Properties
     public static GameManager Instance { get; private set; }
     public static ITokenController SelectedToken { get; private set; }
     public static ITokenController SecondToken { get; private set; }
@@ -39,11 +41,15 @@ public class GameManager : MonoBehaviour
     public static Action<ITokenController> AbilityUsed;
     public static Action<IToken> OnShowInfo;
     public static Action<ITokenController, (int,int)> MovePiece;
+    public static Action<(int,int), TrapTypes> ActivateTrap;
+    public static Action<ITokenController> DeadPiece;
     public static GameStates GameState {get; private set;}
     public static ActionTypes ActualAction {get; private set;}
     public static Players Turn {get; private set;}
     public static bool MazeChanged {get; private set;}
     public static int RoundNumber = 0;
+    public static List<ITokenController> DeadTokens = new List<ITokenController>();
+    #endregion
 
     #region DontTouch
     private void Awake()
@@ -112,12 +118,14 @@ public class GameManager : MonoBehaviour
         MazeChanged = true;
         _mazeController.RotateFace(true, rowIndex, clockwise);
         OnMazeChanged?.Invoke();
+        NewTurn?.Invoke();
     }
     private void HandleColumnRotate(int columnIndex, bool clockwise)
     {
         MazeChanged = true;
         _mazeController.RotateFace(false, columnIndex, clockwise);
         OnMazeChanged?.Invoke();
+        NewTurn?.Invoke();
     }
     private void HandleDesarmMaze()
     {
@@ -266,7 +274,7 @@ public class GameManager : MonoBehaviour
     private void InitializeMaze()
     {
         var maze = new Maze(mazeSize, numberOfFaces, _SOsManager);
-        var generator = new MazeGenerator(mazeSize, 0);
+        var generator = new MazeGenerator(mazeSize, 10);
         
         _mazeController = new MazeController(_SOsManager, maze, generator, mazeView);
         _mazeController.OnCellSelected += HandleSelectedCell;

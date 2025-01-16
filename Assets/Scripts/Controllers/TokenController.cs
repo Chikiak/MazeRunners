@@ -19,6 +19,9 @@ namespace Controllers
         protected Players PLAYER_ID;
         public Players PlayerID => PLAYER_ID;
         
+        protected bool _isAlive = true;
+        public bool IsAlive => _isAlive;
+        
         
         public void UseAbility()
         {
@@ -34,6 +37,7 @@ namespace Controllers
         {
             int newHealth = Model.Health - damage;
             Model.SetHealth(newHealth);
+            GameManager.OnShowInfo?.Invoke(_model);
             if (Model.Health <= 0)
                 Die();
         }
@@ -42,11 +46,20 @@ namespace Controllers
         {
             int newHealth = Model.Health + amount;
             Model.SetHealth(newHealth);
+            GameManager.OnShowInfo?.Invoke(_model);
         }
 
         public void Die()
         {
-            throw new System.NotImplementedException();
+            _isAlive = false;
+            GameManager.DeadTokens.Add(this);
+        }
+
+        public void Revive()
+        {
+            Model.SetHealth(Model.MaxHealth / 2);
+            _isAlive = true;
+            GameManager.DeadTokens.Remove(this);
         }
     }
 }

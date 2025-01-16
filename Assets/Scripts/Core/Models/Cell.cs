@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Core.Interfaces;
 using Core.Interfaces.Entities;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 namespace Core.Models
@@ -20,6 +21,9 @@ namespace Core.Models
         
         private List<ITokenController> _tokens;
         public List<ITokenController> Tokens => _tokens;
+        
+        private TrapTypes _type = TrapTypes.NoTrap;
+        public TrapTypes Type => _type;
         #endregion
 
         #region Methods
@@ -32,17 +36,22 @@ namespace Core.Models
                 _walls[i] = true;
             }
         }
-
         public Cell(ICell cell)
         {
             _position = cell.Position;
             _walls = cell.Walls;
             _tokens = new List<ITokenController>();
+            SetSelectable(cell.Selectable);
             if (cell.Tokens == null) return;
             for (int i = 0; i < cell.Tokens.Count; i++)
             {
                 AddToken(cell.Tokens[i]);
             }
+        }
+
+        public void SetType(TrapTypes type)
+        {
+            _type = type;
         }
         public void SetWall(Directions direction, bool value)
         {
@@ -67,6 +76,11 @@ namespace Core.Models
         public void SetSelectable(bool selectable)
         {
             _selectable = selectable;
+        }
+
+        public virtual void ApplyEffects()
+        {
+            return;
         }
         #endregion
     }

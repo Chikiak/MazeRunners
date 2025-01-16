@@ -1,5 +1,6 @@
-﻿using System;
-using Core.Interfaces;
+﻿using Core.Interfaces;
+using UnityEngine;
+using Random = System.Random;
 
 namespace Core.Generators
 {
@@ -7,7 +8,7 @@ namespace Core.Generators
     {
         private int _size;
         private Random _random;
-        private int[,] _trapsMatrix;
+        private TrapTypes[,] _trapsMatrix;
         private int _trapChance;
 
         private int _numberOfTrapsTypes;
@@ -16,7 +17,7 @@ namespace Core.Generators
         {
             _size = size;
             _random = random;
-            _trapsMatrix = new int[size, size];
+            _trapsMatrix = new TrapTypes[size, size];
             _numberOfTrapsTypes = numberOfTrapsTypes;
             _trapChance = trapChance;
         }
@@ -30,14 +31,14 @@ namespace Core.Generators
                     if (_random.Next(100) < _trapChance)
                     {
                         int newTrap = _random.Next(_numberOfTrapsTypes) + 1;
-                        _trapsMatrix[i, j] = newTrap;
+                        _trapsMatrix[i, j] = (TrapTypes) newTrap;
                     } 
                     else {_trapsMatrix[i, j] = 0;}
                 }
             }
         }
 
-        public int[,] GetNewTrapMatrix()
+        public TrapTypes[,] GetNewTrapMatrix()
         {
             GenerateTrapMatrix();
             return _trapsMatrix;

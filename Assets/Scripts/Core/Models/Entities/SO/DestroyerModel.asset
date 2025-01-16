@@ -15,11 +15,11 @@ MonoBehaviour:
   _tokenName: Destroyer
   _name: 1
   _tokenPrefab: {fileID: 4689490133647111556, guid: f8a0b96e2db669246a9a96e02d7557d4, type: 3}
-  _health: 32
+  _health: 20
   _maxHealth: 40
   _speed: 2
   _remainingMovs: 0
-  _currentCooldown: 4
+  _currentCooldown: 0
   _abilityCooldown: 5
   _specialRangeType: 0
   _specialRange: 1

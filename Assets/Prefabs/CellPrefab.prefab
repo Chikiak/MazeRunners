@@ -350,6 +350,9 @@ MonoBehaviour:
   customFloor: {fileID: 6651809808758101208}
   tokensGrid: {fileID: 2710608384097459282}
   SelectableLayout: {fileID: 6237951326869529715}
+  _trapOrder: 01000000
+  _trapSprites:
+  - {fileID: -2043158116506350236, guid: c7915e73b8437c94aafa4732dcbaed13, type: 3}
 --- !u!114 &1253802913575456214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -550,7 +553,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3118562852534380848
 RectTransform:
   m_ObjectHideFlags: 0

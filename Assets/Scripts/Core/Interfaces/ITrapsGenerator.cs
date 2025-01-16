@@ -3,6 +3,6 @@
     public interface ITrapsGenerator
     {
         int NumberOfTrapsTypes { get; }
-        int[,] GetNewTrapMatrix();
+        TrapTypes[,] GetNewTrapMatrix();
     }
 }

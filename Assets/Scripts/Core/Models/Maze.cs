@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using Core.Interfaces;
 using Core.Interfaces.Entities;
+using UnityEngine;
 
 namespace Core.Models
 {
     public class Maze : IMaze
     {
-
         private int _size;
         public int Size => _size;
         
@@ -43,14 +43,37 @@ namespace Core.Models
             }
         }
 
-        public IMazeFace GetFace(int faceIndex) => MazeCube[faceIndex];
+        public IMazeFace GetFace(int faceIndex)
+        {
+            return MazeCube[faceIndex];
+        }
 
         public void SetFace(int faceIndex, ICell[,] cells)
         {
             if (faceIndex < 0 || faceIndex >= NumberOfFaces)
                 throw new ArgumentOutOfRangeException(nameof(faceIndex));
-
             _mazeCube[faceIndex] = new MazeFace(cells);
+        }
+
+        public ITokenController GetToken(TokensNames name)
+        {
+            foreach (var tokenList in TokensMaze)
+            {
+                if (tokenList.Count <= 0) continue;
+                foreach (var token in tokenList)
+                {
+                    if (token.Model.Name == (TokensNames) name)
+                    {
+                        return token;
+                    }
+                }
+            }
+            throw new Exception($"Token {name} not found");
+        }
+
+        public List<ITokenController> GetTokensInCell((int, int) position)
+        {
+            return _tokensMaze[position.Item1, position.Item2];
         }
     }
 }

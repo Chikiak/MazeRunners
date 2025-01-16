@@ -5,7 +5,6 @@
     Left,
     Right
 }
-
 public enum TokensStates
 {
     Idle,
@@ -13,7 +12,6 @@ public enum TokensStates
     Damaged,
     Dead
 }
-
 public enum GameStates
 {
     Starting,
@@ -23,28 +21,30 @@ public enum GameStates
     CellSelection,
     SelectAction,
 }
-
 public enum ActionTypes
 {
     StartTurn,
     Move,
     UseAbility,
 }
-
 public enum Players
 {
     Player1,
     Player2
 }
-
 public enum RangesType
 {
     Square,
     Path
 }
-
 public enum TokensNames
 {
     Healer,
     Destroyer,
+}
+
+public enum TrapTypes
+{
+    NoTrap,
+    Spikes,
 }

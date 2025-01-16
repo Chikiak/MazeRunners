@@ -15,11 +15,11 @@ MonoBehaviour:
   _tokenName: Healer
   _name: 0
   _tokenPrefab: {fileID: 4689490133647111556, guid: 16d51daeda232c64dbbc70407ec7f652, type: 3}
-  _health: 10
+  _health: -30
   _maxHealth: 30
   _speed: 2
-  _remainingMovs: 2
-  _currentCooldown: 2
+  _remainingMovs: 1
+  _currentCooldown: 0
   _abilityCooldown: 4
   _specialRangeType: 0
   _specialRange: 3

@@ -11,5 +11,7 @@ namespace Core.Interfaces
         List<ITokenController>[,] TokensMaze { get; }
         IMazeFace GetFace(int faceIndex);
         void SetFace(int faceIndex, ICell[,] cells);
+        ITokenController GetToken(TokensNames name);
+        List<ITokenController> GetTokensInCell((int, int) position);
     }
 }

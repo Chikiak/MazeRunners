@@ -53,7 +53,9 @@ namespace Views
             for (int x = 0; x < _mazeSize; x++)
             for (int y = 0; y < _mazeSize; y++)
                 if (cells[x, y] != null && _cellViews[x, y] != null)
+                {
                     _cellViews[x, y].UpdateCell(cells[x, y]);
+                }
         }
 
         public override void UpdateRow(int rowIndex, ICell[] rowCells)
