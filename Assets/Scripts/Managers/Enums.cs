@@ -12,4 +12,29 @@
         Nothing,
         Spikes
     }
+
+    public enum PieceType
+    {
+        Healer,
+        Destroyer
+    }
+
+    public enum StatusEffect
+    {
+        None,
+    }
+
+    public enum PlayerID
+    {
+        Player1,
+        Player2,
+    }
+
+    public enum RangeType
+    {
+        Square,
+        Path,
+        Diamond,
+        Line
+    }
 }

@@ -11,7 +11,7 @@ namespace Core.Interface.Models
         ITrap Trap { get; }
         
         
-        void SetPosition(int x, int y);
+        void SetPosition((int x, int y) newPosition);
         void SetPoints(int points);
         void SetWalls(Dictionary<Direction, bool> newWalls);
         void SetWall(Direction direction, bool value);
