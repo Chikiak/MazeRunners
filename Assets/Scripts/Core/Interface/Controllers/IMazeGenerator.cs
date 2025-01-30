@@ -4,6 +4,6 @@ namespace Core.Interface.Controllers
 {
     public interface IMazeGenerator
     {
-        ICell[,] GenerateMaze(int width, int height);
+        ICell[,] GenerateMaze(int width, int height, int trapChance, int cycleChance = 20);
     }
 }

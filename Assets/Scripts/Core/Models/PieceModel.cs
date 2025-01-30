@@ -5,87 +5,77 @@ namespace Core.Models
 {
     public class PieceModel : IPieceModel
     {
-        private PieceType _pieceType;
-        public PieceType PieceType => _pieceType;
-        private int _health;
-        public int Health => _health;
-        private int _maxHealth;
-        public int MaxHealth => _maxHealth;
-        private int _speed;
-        public int Speed => _speed;
-        private int _maxSpeed;
-        public int MaxSpeed => _maxSpeed;
-        private int _damage;
-        public int Damage => _damage;
-        private int _abilityCooldown;
-        public int AbilityCooldown => _abilityCooldown;
-        private int _currentCooldown;
-        public int CurrentCooldown => _currentCooldown;
-        private StatusEffect _currentStatus;
-        public StatusEffect CurrentStatus => _currentStatus;
-        private float _points;
-        public float Points => _points;
+        public PieceType PieceType { get; private set; }
+        public int Health { get; private set; }
+        public int MaxHealth { get; private set; }
+        public int Speed { get; private set; }
+        public int MaxSpeed { get; private set; }
+        public int Damage { get; private set; }
+        public int AbilityCooldown { get; private set; }
+        public int CurrentCooldown { get; private set; }
+        public StatusEffect CurrentStatus { get; private set; }
+        public float Points { get; private set; }
         
         public void SetPiece(PieceType pieceType)
         {
-            _pieceType = pieceType;
+            PieceType = pieceType;
         }
 
         public void SetHealth(int health)
         {
-            _health = health;
-            if (Health > MaxHealth) _health = MaxHealth;
-            if (Health < 0) _health = 0;
+            Health = health;
+            if (Health > MaxHealth) Health = MaxHealth;
+            if (Health < 0) Health = 0;
         }
 
         public void SetMaxHealth(int maxHealth)
         {
-            _maxHealth = maxHealth;
-            if (Health > MaxHealth) _health = MaxHealth;
-            if (MaxHealth <= 0) _maxHealth = 1;
+            MaxHealth = maxHealth;
+            if (Health > MaxHealth) Health = MaxHealth;
+            if (MaxHealth <= 0) MaxHealth = 1;
         }
 
         public void SetSpeed(int speed)
         {
-            _speed = speed;
-            if (Speed > MaxSpeed) _speed = MaxSpeed;
-            if (Speed < 0) _speed = 0;
+            Speed = speed;
+            if (Speed > MaxSpeed) Speed = MaxSpeed;
+            if (Speed < 0) Speed = 0;
         }
 
         public void SetMaxSpeed(int maxSpeed)
         {
-            _maxSpeed = maxSpeed;
-            if (Speed > MaxSpeed) _speed = MaxSpeed;
-            if (MaxSpeed <= 0) _maxSpeed = 1;
+            MaxSpeed = maxSpeed;
+            if (Speed > MaxSpeed) Speed = MaxSpeed;
+            if (MaxSpeed <= 0) MaxSpeed = 1;
         }
 
         public void SetDamage(int damage)
         {
-            _damage = damage;
-            if (Damage < 0) _damage = 0;
+            Damage = damage;
+            if (Damage < 0) Damage = 0;
         }
 
         public void SetAbilityCooldown(int cooldown)
         {
-            _abilityCooldown = cooldown;
-            if (AbilityCooldown < 0) _abilityCooldown = 0;
+            AbilityCooldown = cooldown;
+            if (AbilityCooldown < 0) AbilityCooldown = 0;
         }
 
         public void SetCurrentCooldown(int currentCooldown)
         {
-            _currentCooldown = currentCooldown;
-            if (CurrentCooldown < 0) _currentCooldown = 0;
-            if (CurrentCooldown > AbilityCooldown) _currentCooldown = AbilityCooldown;
+            CurrentCooldown = currentCooldown;
+            if (CurrentCooldown < 0) CurrentCooldown = 0;
+            if (CurrentCooldown > AbilityCooldown) CurrentCooldown = AbilityCooldown;
         }
 
         public void SetCurrentStatus(StatusEffect statusEffect)
         {
-            _currentStatus = statusEffect;
+            CurrentStatus = statusEffect;
         }
 
         public void SetPoints(float points)
         {
-            _points = points;
+            Points = points;
         }
     }
 }
