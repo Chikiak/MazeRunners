@@ -1,12 +1,12 @@
 ﻿using System;
 using Core.Interface.Models;
+using Managers;
 
 namespace Core.Controllers
 {
     public partial class CubeController
     {
         #region Rotation
-
         public void Rotate(bool isRow, bool clockwise, int index)
         {
             if (index < 0 || index >= _size) throw new Exception($"Rotate: Invalid index: {index}");
@@ -23,7 +23,6 @@ namespace Core.Controllers
             SimpleRotate(facesI, isRow, index);
             if (index == 0 || index == _size - 1) RotateExtremeFace(isRow, index, clockwise);
         }
-
         private void SimpleRotate(int[] facesI, bool isRow, int index)
         {
             ICell[][] tempCells =
@@ -62,7 +61,6 @@ namespace Core.Controllers
                 Model.SetColumn(facesI[0], index, tempCells[^1]);
             }
         }
-
         private void RotateExtremeFace(bool horizontal, int rotateIndex, bool clockwise)
         {
             //This Work Only for 6 Faces
@@ -95,7 +93,6 @@ namespace Core.Controllers
                 }
             }
         }
-
         private void RotateCellsInFace(bool clockwise, int faceIndex)
         {
             ICell[][] rotatedFace = new ICell[_size][];

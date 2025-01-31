@@ -4,7 +4,7 @@ namespace Managers
 {
     public static class GetCellsManager
     {
-        static List<(int x, int y)> GetReachablePositions(RangeType range, int distance, (int x, int y) Position, int size)
+        public static List<(int x, int y)> GetReachablePositions(RangeType range, int distance, (int x, int y) Position, int size)
         {
             List<(int x, int y)> positions;
             List<(int x, int y)> finalPositions = new List<(int x, int y)>();

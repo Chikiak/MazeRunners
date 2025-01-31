@@ -2,8 +2,10 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Core.Controllers;
 using Core.Interface.Controllers;
+using Core.Interface.Models;
 
 namespace Managers
 {
@@ -33,6 +35,11 @@ namespace Managers
         public static Action<int> OnShowFace;
         public static Action OnNewTurn;
         public static Action<bool, bool, int > OnRotate;
+        public static Action SelectingCell;
+        public static Action<GameStates> OnStateChanged;
+        public static Action<IPieceController, (int x, int y)> OnMovePiece;
+        public static Action OnSelectedCell;
+
 
         private void SubscribeToActions()
         {
@@ -40,28 +47,46 @@ namespace Managers
             OnShowFace += HandleShowFace;
             OnRotate += HandleRotate;
             OnDesarmMaze += HandleDesarmMaze;
+            OnStateChanged += HandleStateChanged;
         }
 
-        
 
         #endregion
         
         #region Properties
 
+        public static GameManager Instance;
         public PlayerID Turn { get; private set; }
         private ICubeController _cubeController;
+        
+        public static GameStates GameState { get; private set; }
+        public static ActionType ActualAction;
+        public static (int x, int y) SelectedCell { get; private set; }
         
         #endregion
         
         #region Unity Methods
         private void Start()
         {
-            mazeView.InitializeMaze(mazeSize);
             SubscribeToActions();
+            mazeView.InitializeMaze(mazeSize);
             InitializeMaze();
             OnGenerateNewMaze?.Invoke();
             OnShowFace?.Invoke(0);
+            OnStateChanged?.Invoke(GameStates.PieceOnBoardSelection);
         }
+
+        private void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
+        }
+
         #endregion
         
         #region Handle Actions
@@ -70,39 +95,76 @@ namespace Managers
         {
             _cubeController.GenerateMaze();
         }
-
         private void HandleShowFace(int faceIndex)
         {
             mazeView.UpdateMaze(_cubeController.Model.Cells[faceIndex]);
         }
-        
         private void HandleRotate(bool isRow, bool clockwise, int index)
         {
+            if (GameState != GameStates.PieceOnBoardSelection) return;
             _cubeController.Rotate(isRow, clockwise, index);
             //ToDo: Actualizar solo parte cambiada
             mazeView.UpdateMaze(_cubeController.Model.Cells[0]);
         }
-
         private void HandleDesarmMaze()
         {
             StartCoroutine(DesarmMaze(desarmMoves));
+        }
+        private void HandleStateChanged(GameStates newState)
+        {
+            GameState = newState;
+        }    
+        public static void HandleSelectedCell((int, int) position)
+        {
+            SelectedCell = position;
+            OnSelectedCell?.Invoke();
+            if (GameState == GameStates.PutingInitialPiece)
+            {
+                /*piecesInMaze += 1;
+                _cubeController.PutInitialPiece();
+                if (piecesInMaze == piecesInTeam * 2)
+                {
+                    OnStateChanged?.Invoke(GameStates.PieceOnBoardSelection);
+                }
+                else {OnStateChanged?.Invoke(GameStates.SelectInitialPiece);}
+                NewTurn?.Invoke();*/
+            }
+            else if (ActualAction == ActionType.Move)
+            {
+                //ToDo
+                OnMovePiece?.Invoke(PieceManager.SelectedPiece, SelectedCell);
+            }
+            OnStateChanged?.Invoke(GameStates.PieceOnBoardSelection);
         }
         
         
         #endregion
         
         #region Methods
-        
+
+
+        private void UpdateCells(List<(int x, int y)> positions)
+        {
+            if (positions == null) return;
+            List<ICell> cells = new List<ICell>();
+            foreach (var pos in positions)
+            {
+                cells.Add(_cubeController.Model.Cells[0][pos.x, pos.y]);
+            }
+            mazeView.UpdateCells(cells);
+        }
         private void InitializeMaze()
         {
             _cubeController = new CubeController();//(_SOsManager, maze, generator, mazeView, totalPoints);
             _cubeController.InitializeMaze(mazeSize);
             PieceManager.Initialize(mazeSize);
+            _cubeController.OnCellsChanged += UpdateCells;
             //ToDo: _cubeController.OnCellSelected += HandleSelectedCell;
         }
         
         private IEnumerator DesarmMaze(int numberOfMoves)
         {
+            if (GameManager.GameState != GameStates.PieceOnBoardSelection) yield break;
             for (int i = 0; i < numberOfMoves; i++)
             {
                 RandomRotate();

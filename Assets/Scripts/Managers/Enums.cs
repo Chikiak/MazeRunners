@@ -37,4 +37,19 @@
         Diamond,
         Line
     }
+
+    public enum ActionType
+    {
+        Move,
+        UseAbility,
+    }
+    public enum GameStates
+    {
+        Starting,
+        SelectInitialPiece,
+        PutingInitialPiece,
+        PieceOnBoardSelection,
+        CellSelection,
+        SelectAction,
+    }
 }

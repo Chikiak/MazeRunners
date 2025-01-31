@@ -9,6 +9,7 @@ namespace Core.Interface.Models
         int MaxHealth { get; }
         int Speed { get; }
         int MaxSpeed { get; }
+        int RemainingMovs { get; }
         int Damage { get; }
         int AbilityCooldown { get; }
         int CurrentCooldown { get; }
@@ -20,6 +21,7 @@ namespace Core.Interface.Models
         void SetMaxHealth(int maxHealth);
         void SetSpeed(int speed);
         void SetMaxSpeed(int maxSpeed);
+        void SetRemainingMovs(int remainingMovs);
         void SetDamage(int damage);
         void SetAbilityCooldown(int cooldown);
         void SetCurrentCooldown(int currentCooldown);

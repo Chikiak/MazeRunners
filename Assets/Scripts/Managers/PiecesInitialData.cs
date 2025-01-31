@@ -22,6 +22,7 @@ namespace Managers
             newModel.SetMaxHealth(30);
             newModel.SetHealth(30);
             newModel.SetMaxSpeed(2);
+            newModel.SetRemainingMovs(2);
             newModel.SetSpeed(2);
             newModel.SetPoints(0);
             newModel.SetAbilityCooldown(4);
@@ -38,6 +39,7 @@ namespace Managers
             newModel.SetMaxHealth(30);
             newModel.SetHealth(30);
             newModel.SetMaxSpeed(2);
+            newModel.SetRemainingMovs(2);
             newModel.SetSpeed(2);
             newModel.SetPoints(0);
             newModel.SetAbilityCooldown(4);

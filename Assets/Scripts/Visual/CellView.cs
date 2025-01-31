@@ -7,6 +7,7 @@ using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 using Visual.Pieces;
+using Visual.Selection;
 
 namespace Visual
 {
@@ -24,6 +25,7 @@ namespace Visual
         }
         public override void UpdateCell(ICell cell)
         {
+            var handle = selectableLayout.GetComponent<HandleSelectCell>();
             if (cell.Position.x % 2 == cell.Position.y % 2)
             {
                 floor.GetComponent<Image>().color = new Color32(50, 125, 50, 175);
@@ -39,6 +41,15 @@ namespace Visual
             for (int i = 0; i < 4; i++)
             {
                 walls[i].SetActive(wallStates[i]);
+            }
+            if (cell.IsSelectable)
+            {
+                selectableLayout.SetActive(true);
+                handle.SetPosition(cell.Position);
+            }
+            else
+            {
+                selectableLayout.SetActive(false);
             }
 
             if (PieceManager.PiecesMatrix[cell.Position.x, cell.Position.y] is null)

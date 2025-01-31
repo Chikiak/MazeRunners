@@ -10,6 +10,7 @@ namespace Core.Models
         public int MaxHealth { get; private set; }
         public int Speed { get; private set; }
         public int MaxSpeed { get; private set; }
+        public int RemainingMovs { get; private set; }
         public int Damage { get; private set; }
         public int AbilityCooldown { get; private set; }
         public int CurrentCooldown { get; private set; }
@@ -49,6 +50,10 @@ namespace Core.Models
             if (MaxSpeed <= 0) MaxSpeed = 1;
         }
 
+        public void SetRemainingMovs(int remainingMovs)
+        {
+            RemainingMovs = remainingMovs;
+        }
         public void SetDamage(int damage)
         {
             Damage = damage;

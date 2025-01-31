@@ -4,6 +4,7 @@ namespace Managers
 {
     public class InputManager : MonoBehaviour
     {
+        [SerializeField] private KeyCode moveKey = KeyCode.J;
         [SerializeField] private KeyCode generateNewMazeKey = KeyCode.Space;
         [SerializeField] private KeyCode desarmMazeKey = KeyCode.A;
         [SerializeField] private KeyCode newTurnKey = KeyCode.S;
@@ -15,6 +16,15 @@ namespace Managers
             HandleFaceSelection();
             HandleDesarmMaze();
             HandleNewTurn();
+            HandleTestMove();
+        }
+
+        private void HandleTestMove()
+        {
+            if (Input.GetKeyUp(moveKey))
+            {
+                GameManager.SelectingCell?.Invoke();
+            }
         }
         private void HandleMazeGeneration()
         {

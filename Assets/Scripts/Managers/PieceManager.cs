@@ -10,6 +10,7 @@ namespace Managers
     public static class PieceManager
     {
         public static List<IPieceController>[,] PiecesMatrix { get; private set; }
+        public static IPieceController SelectedPiece { get; private set; }
 
         public static void Initialize(int mazeSize)
         {
@@ -19,7 +20,13 @@ namespace Managers
                     PiecesMatrix[x, y] = new List<IPieceController>();
             var newPiece = new PieceController();
             newPiece.Initialize(PiecesInitialData.GetInitialPiece(PieceType.Healer), PlayerID.Player1);
-            PiecesMatrix[5,5].Add(newPiece);
+            AddPiece(newPiece, (4, 5));
+            SelectedPiece = newPiece;
+        }
+        
+        public static List<IPieceController> GetPiecesInCell((int x, int y) position)
+        {
+            return PiecesMatrix[position.x, position.y];
         }
 
         public static bool AddPiece(IPieceController pieceController, (int x, int y) position)
@@ -30,14 +37,28 @@ namespace Managers
             return true;
         }
 
-        public static bool MovePiece(IPieceController pieceController, (int x, int y) newPosition)
+        public static bool MovePiece(IPieceController pieceController, Direction direction)
         {
-            if (AddPiece(pieceController, newPosition))
+            (int x, int y) newPosition = pieceController.Position;
+            switch (direction)
             {
-                RemovePiece(pieceController);
-                return true;
+                case Direction.Up:
+                    newPosition.y--;
+                    break;
+                case Direction.Down:
+                    newPosition.y++;
+                    break;
+                case Direction.Left:
+                    newPosition.x--;
+                    break;
+                case Direction.Right:
+                    newPosition.x++;
+                    break;
             }
-            return false;
+
+            RemovePiece(pieceController);
+            AddPiece(pieceController, newPosition);
+            return true;
         }
         private static void DefeatedPiece(IPieceController piece)
         {

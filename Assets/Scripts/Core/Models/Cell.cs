@@ -10,19 +10,20 @@ namespace Core.Models
         public (int x, int y) Position { get; private set; }
         public int Points { get; private set; }
         public Dictionary<Direction, bool> Walls { get; private set; }
-        private ITrap _trap;
-        public ITrap Trap => _trap;
+        public ITrap Trap { get; private set; }
+        public bool IsSelectable { get; private set; }
 
         public Cell((int x, int y) position, TrapType trapType)
         {
             SetPosition(position);
             SetPoints(0);
+            SetSelectable(false);
             Walls = new Dictionary<Direction, bool>();
             foreach (Direction direction in Enum.GetValues(typeof(Direction)))
             {
                 Walls[direction] = true;
             }
-            _trap = TrapsInitialData.GetInitialTrap(trapType);
+            Trap = TrapsInitialData.GetInitialTrap(trapType);
         }
 
         public Cell(ICell cell)
@@ -31,7 +32,13 @@ namespace Core.Models
             SetPosition(cell.Position);
             SetPoints(cell.Points);
             SetWalls(cell.Walls);
-            _trap = cell.Trap;
+            SetSelectable(cell.IsSelectable);
+            Trap = cell.Trap;
+        }
+
+        public void SetSelectable(bool selectable)
+        {
+            IsSelectable = selectable;
         }
         
         public void SetPosition((int x, int y) newPosition)
