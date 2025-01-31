@@ -11,16 +11,24 @@ namespace Managers
             return trapType switch
             {
                 TrapType.Spikes => GetNewSpikes(),
-                _ => null
+                _ => GetEmpty()
             };
         }
 
+        static ITrap GetEmpty()
+        {
+            Trap trap = new Trap();
+            trap.SetType(TrapType.Nothing);
+            trap.SetAbilityCooldown(0);
+            trap.SetCurrentCooldown(0);
+            return trap;
+        }
         static ITrap GetNewSpikes()
         {
             Trap trap = new Trap();
             trap.SetType(TrapType.Spikes);
-            trap.SetAbilityCooldown(5);
-            trap.SetCurrentCooldown(5);
+            trap.SetAbilityCooldown(3);
+            trap.SetCurrentCooldown(3);
             return trap;
         }
     }

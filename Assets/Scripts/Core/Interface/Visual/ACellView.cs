@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Core.Interface.Models;
 using Managers;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Core.Interface.Visual
 {

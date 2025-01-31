@@ -30,7 +30,7 @@ namespace Core.Controllers
         public void GenerateMaze()
         {
             for (int i = 0; i < 6; i++)
-                Model.SetFace(i, _mazeGenerator.GenerateMaze(_size,_size, 0));
+                Model.SetFace(i, _mazeGenerator.GenerateMaze(_size,_size, 10));
         }
 
         private void HandleSelectedCell()

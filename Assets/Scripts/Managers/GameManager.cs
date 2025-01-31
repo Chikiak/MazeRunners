@@ -159,7 +159,6 @@ namespace Managers
             _cubeController.InitializeMaze(mazeSize);
             PieceManager.Initialize(mazeSize);
             _cubeController.OnCellsChanged += UpdateCells;
-            //ToDo: _cubeController.OnCellSelected += HandleSelectedCell;
         }
         
         private IEnumerator DesarmMaze(int numberOfMoves)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Core.Controllers;
 using Core.Interface.Controllers;
 using Core.Interface.Models;
@@ -50,6 +51,18 @@ namespace Visual
             else
             {
                 selectableLayout.SetActive(false);
+            }
+            switch (cell.Trap.TrapType)
+            {
+                case TrapType.Nothing:
+                    customFloor.GetComponent<Image>().color = new Color32(50, 125, 50, 0);
+                    break;
+                case TrapType.Spikes:
+                    customFloor.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+                    customFloor.GetComponent<Image>().sprite = TrapSpritesDict[cell.Trap.TrapType];
+                    break;
+                default:
+                    throw new Exception($"CellView: Invalid trap type: {cell.Trap.TrapType}");
             }
 
             if (PieceManager.PiecesMatrix[cell.Position.x, cell.Position.y] is null)

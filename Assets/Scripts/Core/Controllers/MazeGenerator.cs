@@ -14,11 +14,12 @@ namespace Core.Controllers
             _width = width;
             _height = height;
             _cycleChance = cycleChance;
-            //_trapsGenerator = new TrapsGenerator(size, _random, 1, trapChance);
+            _trapGenerator = new TrapGenerator(width, _random, 1, trapChance);
             
             return GenerateFace();
         }
 
+        private TrapGenerator _trapGenerator;
         private Random _random;
         private int _cycleChance;
         private Dictionary<Direction, (int x, int y)> _directionsDelta = new Dictionary<Direction, (int x, int y)>();
@@ -27,7 +28,6 @@ namespace Core.Controllers
 
         private int _width;
         private int _height;
-        //ToDo: private TrapsGenerator _trapsGenerator;
 
         public MazeGenerator()
         {
@@ -42,7 +42,7 @@ namespace Core.Controllers
         
         public ICell[,] GenerateFace()
         {
-            //TrapTypes[,] trapMatrix = _trapsGenerator.GetNewTrapMatrix();
+            TrapType[,] trapMatrix = _trapGenerator.GetNewTrapMatrix();
             var cells = new ICell[_width, _height];
             var visited = new bool[_width, _height];
 
@@ -50,7 +50,12 @@ namespace Core.Controllers
             {
                 for (int y = 0; y < _height; y++)
                 {
-                    cells[x, y] = new Cell((x, y), TrapType.Nothing);
+                    cells[x, y] = trapMatrix[x, y] switch
+                    {
+                        TrapType.Nothing => new Cell((x, y), TrapType.Nothing),
+                        TrapType.Spikes => new Cell((x, y), TrapType.Spikes),
+                        _ => throw new Exception($"Unexpected trap type {trapMatrix[x, y]}")
+                    };
                 }
             }
             
