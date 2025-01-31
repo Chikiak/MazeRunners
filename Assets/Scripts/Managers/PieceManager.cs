@@ -1,7 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Core.Controllers;
 using Core.Interface.Controllers;
 using Core.Interface.Models;
+using UnityEngine;
+using Random = System.Random;
 
 namespace Managers
 {
@@ -15,6 +17,9 @@ namespace Managers
             for (int x = 0; x < mazeSize; x++)
                 for (int y = 0; y < mazeSize; y++)
                     PiecesMatrix[x, y] = new List<IPieceController>();
+            var newPiece = new PieceController();
+            newPiece.Initialize(PiecesInitialData.GetInitialPiece(PieceType.Healer), PlayerID.Player1);
+            PiecesMatrix[5,5].Add(newPiece);
         }
 
         public static bool AddPiece(IPieceController pieceController, (int x, int y) position)
@@ -34,7 +39,6 @@ namespace Managers
             }
             return false;
         }
-
         private static void DefeatedPiece(IPieceController piece)
         {
             PiecesMatrix[piece.Position.x, piece.Position.y].Remove(piece);

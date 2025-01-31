@@ -5,31 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="111dc0f2-babf-4e7c-9e5e-d9002130272b" name="Changes" comment="Added Maze Generation, Cube Rotation, and Overall View">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Visual.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Visual/ACellView.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Visual/ACellView.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Visual/AMazeView.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Visual/AMazeView.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/InputManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/InputManager.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/MazeRotationArrows.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/MazeRotationArrows.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/CellView.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/CellView.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/MazeView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.Rotation.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.Rotation.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GetCellsManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GetCellsManager.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Pieces.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Pieces/PieceView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Pieces/PieceView.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MazeRunners/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MazeRunners/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/MazeGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/MazeGenerator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Controllers/ICubeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Controllers/ICubeController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Controllers/IMazeGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Controllers/IMazeGenerator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Models/ICubeModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Models/ICubeModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Models/ICell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Models/ICell.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Visual/ACellView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Visual/ACellView.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Models/Cell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Models/Cell.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Models/CubeModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Models/CubeModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Models/PieceModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Models/PieceModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/PieceManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/PieceManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/PiecesInitialData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/PiecesInitialData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Visual/CellView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/CellView.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +145,7 @@
       <workItem from="1738255676513" duration="1037000" />
       <workItem from="1738257256214" duration="66000" />
       <workItem from="1738263158559" duration="313000" />
-      <workItem from="1738263549589" duration="17169000" />
+      <workItem from="1738263549589" duration="26051000" />
     </task>
     <task id="LOCAL-00001" summary="Added Non Interface implemetations. Added PieceManager, InitialData, Traps">
       <option name="closed" value="true" />
@@ -162,7 +155,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738211795702</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added Maze Generation, Cube Rotation, and Overall View">
+      <option name="closed" value="true" />
+      <created>1738280998428</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1738280998428</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -181,24 +182,5 @@
     <MESSAGE value="Added Non Interface implemetations. Added PieceManager, InitialData, Traps" />
     <MESSAGE value="Added Maze Generation, Cube Rotation, and Overall View" />
     <option name="LAST_COMMIT_MESSAGE" value="Added Maze Generation, Cube Rotation, and Overall View" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Managers/MazeRotationArrows.cs</url>
-          <line>54</line>
-          <properties documentPath="C:\Users\adria\Unity Projects\MazeRunners\Assets\Scripts\Managers\MazeRotationArrows.cs" containingFunctionPresentation="Lambda expression inside Method 'AddEventTrigger'">
-            <startOffsets>
-              <option value="1919" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1973" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

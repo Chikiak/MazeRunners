@@ -13,6 +13,7 @@ namespace Core.Interface.Visual
         [SerializeField] protected GameObject floor;
         [SerializeField] protected GameObject customFloor;
         [SerializeField] protected GameObject pointsView;
+        [SerializeField] protected GameObject piecesParent;
         [SerializeField] protected GameObject selectableLayout;
         public Action<(int,int)> OnCellClicked;
         [SerializeField] private List<TrapType> trapOrder;

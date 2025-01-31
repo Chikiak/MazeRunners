@@ -15,5 +15,6 @@ namespace Core.Interface.Models
         void SetPoints(int points);
         void SetWalls(Dictionary<Direction, bool> newWalls);
         void SetWall(Direction direction, bool value);
+        void RotateWalls(bool clockwise);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Core.Interface.Visual;
 using UnityEngine;
 using System;
+using System.Collections;
 using Core.Controllers;
 using Core.Interface.Controllers;
 
@@ -10,7 +11,7 @@ namespace Managers
     {
         #region Serialized
         [Header("Maze Configuration")] 
-        [SerializeField, Range(3, 20)] private int mazeSize = 10;
+        [SerializeField, Range(3, 7)] private int mazeSize = 10;
 
         [SerializeField, Range(6, 6)] private int numberOfFaces = 6;
         [SerializeField, Range(1, 100)] private int desarmMoves = 10;
@@ -38,6 +39,7 @@ namespace Managers
             OnGenerateNewMaze += HandleGenerateNewMaze;
             OnShowFace += HandleShowFace;
             OnRotate += HandleRotate;
+            OnDesarmMaze += HandleDesarmMaze;
         }
 
         
@@ -80,6 +82,11 @@ namespace Managers
             //ToDo: Actualizar solo parte cambiada
             mazeView.UpdateMaze(_cubeController.Model.Cells[0]);
         }
+
+        private void HandleDesarmMaze()
+        {
+            StartCoroutine(DesarmMaze(desarmMoves));
+        }
         
         
         #endregion
@@ -90,8 +97,38 @@ namespace Managers
         {
             _cubeController = new CubeController();//(_SOsManager, maze, generator, mazeView, totalPoints);
             _cubeController.InitializeMaze(mazeSize);
+            PieceManager.Initialize(mazeSize);
             //ToDo: _cubeController.OnCellSelected += HandleSelectedCell;
         }
+        
+        private IEnumerator DesarmMaze(int numberOfMoves)
+        {
+            for (int i = 0; i < numberOfMoves; i++)
+            {
+                RandomRotate();
+
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
+        private void RandomRotate()
+        {
+            int r = (int) UnityEngine.Random.Range(0, mazeSize);
+            int c = (int) UnityEngine.Random.Range(0, 10);
+            int f = (int) UnityEngine.Random.Range(0, 10);
+            bool horizontal = (c % 2 == 0);
+            bool clockwise = (f % 2 == 0);
+            if (horizontal)
+            {
+                Debug.Log(clockwise ? "Derecha" : "Izquierda");
+            }
+            else
+            {
+                Debug.Log(clockwise ? "Abajo" : "Arriba");
+            }
+            
+            OnRotate?.Invoke(horizontal, clockwise, r);
+        }
+        
         #endregion
     }
 }

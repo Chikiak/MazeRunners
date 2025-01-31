@@ -56,5 +56,28 @@ namespace Core.Models
         {
             Walls[direction] = value;
         }
+        public void RotateWalls(bool clockwise)
+        {
+            var newWalls = new Dictionary<Direction, bool>(); 
+            if (clockwise)
+            {
+                newWalls[Direction.Up] = Walls[Direction.Left];
+                newWalls[Direction.Right] = Walls[Direction.Up];
+                newWalls[Direction.Down] = Walls[Direction.Right];
+                newWalls[Direction.Left] = Walls[Direction.Down];
+            }
+            else
+            {
+                newWalls[Direction.Up] = Walls[Direction.Right];
+                newWalls[Direction.Right] = Walls[Direction.Down];
+                newWalls[Direction.Down] = Walls[Direction.Left];
+                newWalls[Direction.Left] = Walls[Direction.Up];
+            }
+
+            foreach (var d in Enum.GetValues(typeof(Direction)))
+            {
+                SetWall((Direction)d, newWalls[(Direction)d]);
+            }
+        }
     }
 }

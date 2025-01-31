@@ -39,13 +39,14 @@ namespace Core.Models
         public void SetCell(int face, (int x, int y) position, ICell cell)
         {
             Cells[face][position.x, position.y] = new Cell(cell);
+            Cells[face][position.x, position.y].SetPosition(position);
         }
 
         public void SetRow(int face, int rowIndex, ICell[] rowCells)
         {
             for (int i = 0; i < rowCells.Length; i++)
             {
-                Cells[face][i, rowIndex] = new Cell(rowCells[i]);
+                SetCell(face, (i, rowIndex), new Cell(rowCells[i]));
             }
         }
 
@@ -53,7 +54,7 @@ namespace Core.Models
         {
             for (int i = 0; i < columnCells.Length; i++)
             {
-                Cells[face][columnIndex, i] = new Cell(columnCells[i]);
+                SetCell(face, (columnIndex, i), new Cell(columnCells[i]));
             }
         }
 
@@ -63,7 +64,7 @@ namespace Core.Models
             {
                 for (int j = 0; j < newCells.GetLength(1); j++)
                 {
-                    Cells[face][i, j] = new Cell(newCells[i, j]);
+                    SetCell(face, (i, j), new Cell(newCells[i, j]));
                 }
             }
         }
