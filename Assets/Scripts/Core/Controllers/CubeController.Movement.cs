@@ -35,7 +35,7 @@ namespace Core.Controllers
 
             foreach (var cell in cells)
             {
-                if (PieceManager.GetPiecesInCell(cell).Count > 0) continue;
+                if (GameManager.GameState == GameStates.PutingInitialPiece && PieceManager.GetPiecesInCell(cell).Count > 0) continue;
 
                 _selectableCells.Add(cell);
                 Model.Cells[0][cell.x, cell.y].SetSelectable(true);
@@ -50,9 +50,14 @@ namespace Core.Controllers
         }
         private void SetSelectableCells()
         {
-            GameManager.OnStateChanged?.Invoke(GameStates.CellSelection);
             _selectableCells = new List<(int x, int y)>();
             var piece = PieceManager.SelectedPiece;
+            if (GameManager.GameState == GameStates.PutingInitialPiece)
+            {
+                SetSelectableCells(RangeType.Square, 3, (_size/2, _size/2));
+                return;
+            }
+            GameManager.OnStateChanged?.Invoke(GameStates.CellSelection);
             SetSelectableCells(RangeType.Path, piece.PieceModel.RemainingMovs, piece.Position);
         }
         private List<(int x, int y)> GetCellsInRange(RangeType rangeType, int distance, (int, int) pos)

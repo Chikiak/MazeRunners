@@ -38,13 +38,11 @@ namespace Managers
             }
             rectTransform.rotation = Quaternion.Euler(0, 0, rotation);
             AddEventTrigger(arrowObj, index, isRow, clockwise);
-            Debug.Log("Created arrow");
             
         }
         
         private void AddEventTrigger(GameObject arrowObj, int index, bool isRow, bool clockwise)
         {
-            Debug.Log($"Adding event {arrowObj.name}");
             EventTrigger trigger = arrowObj.AddComponent<EventTrigger>();
             EventTrigger.Entry onClick = new EventTrigger.Entry
             {
@@ -53,7 +51,6 @@ namespace Managers
             onClick.callback.AddListener((data) => 
             {
                 GameManager.OnRotate?.Invoke(isRow, clockwise, index);
-                Debug.Log($"OnRotate called {arrowObj.name}");
             });
             
             trigger.triggers.Add(onClick);
@@ -61,7 +58,6 @@ namespace Managers
         
         public void InitializeArrows(int size)
         {
-            Debug.Log("InitializeArrows");
             ClearArrows();
             float pos = ((arrowSize * size / 2) + arrowSize / 2);
             rowArrowsLeft.SetLocalPositionAndRotation(new Vector3(-1 * pos, pos - arrowSize, 0f), Quaternion.identity);

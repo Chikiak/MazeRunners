@@ -29,6 +29,8 @@ namespace Managers
             newModel.SetCurrentCooldown(4);
             newModel.SetCurrentStatus(StatusEffect.None);
             newModel.SetDamage(5);
+            newModel.SetRangeType(RangeType.Square);
+            newModel.SetSpecialRange(3);
             return newModel;
         }
 

@@ -4,9 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="111dc0f2-babf-4e7c-9e5e-d9002130272b" name="Changes" comment="">
+    <list default="true" id="111dc0f2-babf-4e7c-9e5e-d9002130272b" name="Changes" comment="Added Piece Selection, Added Working Abilities, Improved Actions Control, Added Fights and Defeated Pieces">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Actions.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Actions/ActionMenu.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Actions/ActionMenu.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Selection/AuxPanel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Selection/AuxPanel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Selection/HandleSelectPiece.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Selection/HandleSelectPiece.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Selection/SelectionPanel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Selection/SelectionPanel.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MazeRunners/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MazeRunners/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.Movement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.Movement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/MazeGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/MazeGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/PieceController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/PieceController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Controllers/IMazeGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Controllers/IMazeGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Controllers/IPieceController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Controllers/IPieceController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Models/IPieceModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Models/IPieceModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Models/PieceModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Models/PieceModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/GetCellsManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GetCellsManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/MazeRotationArrows.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/MazeRotationArrows.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/PieceManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/PieceManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/PiecesInitialData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/PiecesInitialData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Visual/CellView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/CellView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Visual/Pieces/PieceView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Pieces/PieceView.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +59,9 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/321eb2db7c6d43ea8fc39b54eaca345246ae00/fd/08ecc396/List`1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b5bf0c891ea345fe93688f835df32fdc1dda00/19/1cf98714/UnitySynchronizationContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Core/Interface/Models/ICubeModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/adria/Unity Projects/MazeRunners/Assets/Scripts/Core/Models/Cell.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/adria/Unity Projects/MazeRunners/Assets/Scripts/Core/Interface/Visual/ACellView.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/adria/Unity Projects/MazeRunners/Assets/Scripts/Core/Interface/Visual/ACellView.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/adria/Unity Projects/MazeRunners/Assets/Scripts/Managers/GameManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem/InputSystem/Plugins/UI/InputSystemUIInputModule.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core/Runtime/Debugging/DebugUpdater.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui/Runtime/UGUI/EventSystem/EventSystem.cs" root0="SKIP_HIGHLIGHTING" />
@@ -45,6 +71,9 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui/Runtime/UGUI/UI/Core/Layout/HorizontalOrVerticalLayoutGroup.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 5
@@ -129,6 +158,9 @@
       <workItem from="1738257256214" duration="66000" />
       <workItem from="1738263158559" duration="313000" />
       <workItem from="1738263549589" duration="46467000" />
+      <workItem from="1738332499400" duration="3292000" />
+      <workItem from="1738338760661" duration="2186000" />
+      <workItem from="1738346041187" duration="17937000" />
     </task>
     <task id="LOCAL-00001" summary="Added Non Interface implemetations. Added PieceManager, InitialData, Traps">
       <option name="closed" value="true" />
@@ -162,7 +194,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738312430164</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added TrapGeneration and view">
+      <option name="closed" value="true" />
+      <created>1738334173261</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1738334173261</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -182,7 +222,9 @@
     <MESSAGE value="Added Maze Generation, Cube Rotation, and Overall View" />
     <MESSAGE value="Improved Rotation, Added GetCellsManager, Added basic Piece Management." />
     <MESSAGE value="It WOOOOORKS, added Movement" />
-    <option name="LAST_COMMIT_MESSAGE" value="It WOOOOORKS, added Movement" />
+    <MESSAGE value="Added TrapGeneration and view" />
+    <MESSAGE value="Added Piece Selection, Added Working Abilities, Improved Actions Control, Added Fights and Defeated Pieces" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Piece Selection, Added Working Abilities, Improved Actions Control, Added Fights and Defeated Pieces" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

@@ -18,5 +18,9 @@ namespace Core.Interface.Controllers
         void TakeDamage(int damage);
         void Die();
         void Revive();
+        bool IsAlive();
+        bool AbilityIsReady();
+        void UseAbility();
+        void ReduceCooldowns();
     }
 }

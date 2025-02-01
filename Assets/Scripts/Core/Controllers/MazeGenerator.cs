@@ -9,6 +9,8 @@ namespace Core.Controllers
 {
     public class MazeGenerator : IMazeGenerator
     {
+        public Dictionary<Direction, (int x, int y)> _directionsDelta { get; }
+
         public ICell[,] GenerateMaze(int width, int height, int trapChance, int cycleChance)
         {
             _width = width;
@@ -22,7 +24,6 @@ namespace Core.Controllers
         private TrapGenerator _trapGenerator;
         private Random _random;
         private int _cycleChance;
-        private Dictionary<Direction, (int x, int y)> _directionsDelta = new Dictionary<Direction, (int x, int y)>();
         private int[] _dx = { 0, 0, -1, 1 };
         private int[] _dy = { -1, 1, 0, 0 };
 
@@ -117,7 +118,7 @@ namespace Core.Controllers
                 array[i % array.Length] = temp;
             }
         }
-        private void OpenPathBetweenCells(ICell cell1, ICell cell2)
+        public void OpenPathBetweenCells(ICell cell1, ICell cell2)
         {
             if (cell1 == null || cell2 == null) return;
             var position1 = cell1.Position;

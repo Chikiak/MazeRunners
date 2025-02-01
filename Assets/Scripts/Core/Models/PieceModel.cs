@@ -16,7 +16,9 @@ namespace Core.Models
         public int CurrentCooldown { get; private set; }
         public StatusEffect CurrentStatus { get; private set; }
         public float Points { get; private set; }
-        
+        public RangeType SpecialRangeType { get; private set; }
+        public int SpecialRange { get; private set; }
+
         public void SetPiece(PieceType pieceType)
         {
             PieceType = pieceType;
@@ -82,5 +84,16 @@ namespace Core.Models
         {
             Points = points;
         }
+
+        public void SetRangeType(RangeType rangeType)
+        {
+            SpecialRangeType = rangeType;
+        }
+
+        public void SetSpecialRange(int specialRange)
+        {
+            SpecialRange = specialRange;
+        }
+        
     }
 }

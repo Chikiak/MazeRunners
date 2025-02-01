@@ -64,12 +64,6 @@ namespace Visual
                 default:
                     throw new Exception($"CellView: Invalid trap type: {cell.Trap.TrapType}");
             }
-
-            if (PieceManager.PiecesMatrix[cell.Position.x, cell.Position.y] is null)
-            {
-                ClearTokensView();
-                return;
-            }
             UpdatePiecesInCell(PieceManager.PiecesMatrix[cell.Position.x, cell.Position.y]);
         }
 
@@ -83,8 +77,9 @@ namespace Visual
                 var viewPrefab = PrefabDictionary[pieceController.PieceModel.PieceType];
                 var newPiece = Instantiate(viewPrefab, piecesParent.transform);
                 _piecesView.Add(newPiece);
-                var view = viewPrefab.GetComponent<PieceView>();
+                var view = newPiece.GetComponent<PieceView>();
                 view.Initialize(pieceController);
+                view.UpdateVisuals();
                 
                 //Cambiarles el color en dependencia del jugador
                 var image = view.PieceImage;

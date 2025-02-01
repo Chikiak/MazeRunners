@@ -39,6 +39,10 @@ namespace Managers
         public static Action<GameStates> OnStateChanged;
         public static Action<IPieceController, (int x, int y)> OnMovePiece;
         public static Action OnSelectedCell;
+        public static Action<IPieceController> OnPieceSelected;
+        public static Action<List<(int x,int y)>> UpdateCellsView;
+        public static Action<ActionType> OnChangeActualAction;
+        public static Action OnAbilityUsed;
 
 
         private void SubscribeToActions()
@@ -48,6 +52,11 @@ namespace Managers
             OnRotate += HandleRotate;
             OnDesarmMaze += HandleDesarmMaze;
             OnStateChanged += HandleStateChanged;
+            OnPieceSelected += HandlePieceSelected;
+            UpdateCellsView += UpdateCells;
+            OnNewTurn += HandleNewTurn;
+            OnChangeActualAction += HandleChangeAction;
+            OnAbilityUsed += HandleAbilityUsed;
         }
 
 
@@ -56,8 +65,9 @@ namespace Managers
         #region Properties
 
         public static GameManager Instance;
-        public PlayerID Turn { get; private set; }
+        public static PlayerID Turn { get; private set; }
         private ICubeController _cubeController;
+        private static int nOfPiecesInMaze = 0;
         
         public static GameStates GameState { get; private set; }
         public static ActionType ActualAction;
@@ -73,9 +83,8 @@ namespace Managers
             InitializeMaze();
             OnGenerateNewMaze?.Invoke();
             OnShowFace?.Invoke(0);
-            OnStateChanged?.Invoke(GameStates.PieceOnBoardSelection);
+            OnStateChanged?.Invoke(GameStates.SelectInitialPiece);
         }
-
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -105,6 +114,7 @@ namespace Managers
             _cubeController.Rotate(isRow, clockwise, index);
             //ToDo: Actualizar solo parte cambiada
             mazeView.UpdateMaze(_cubeController.Model.Cells[0]);
+            OnNewTurn?.Invoke();
         }
         private void HandleDesarmMaze()
         {
@@ -113,28 +123,74 @@ namespace Managers
         private void HandleStateChanged(GameStates newState)
         {
             GameState = newState;
+            Debug.Log($"Game state changed to {GameState}");
         }    
         public static void HandleSelectedCell((int, int) position)
         {
             SelectedCell = position;
             OnSelectedCell?.Invoke();
             if (GameState == GameStates.PutingInitialPiece)
-            {
-                /*piecesInMaze += 1;
-                _cubeController.PutInitialPiece();
-                if (piecesInMaze == piecesInTeam * 2)
+            { 
+                nOfPiecesInMaze += 1;
+                PieceManager.AddPiece(PieceManager.SelectedPiece, (SelectedCell.x, SelectedCell.y));
+                List<(int x, int y)> cells = new List<(int x, int y)>();
+                cells.Add((SelectedCell.x, SelectedCell.y));
+                UpdateCellsView?.Invoke(cells);
+                OnNewTurn?.Invoke();
+                if (nOfPiecesInMaze == Instance.piecesInTeam * 2)
                 {
                     OnStateChanged?.Invoke(GameStates.PieceOnBoardSelection);
                 }
-                else {OnStateChanged?.Invoke(GameStates.SelectInitialPiece);}
-                NewTurn?.Invoke();*/
             }
             else if (ActualAction == ActionType.Move)
             {
-                //ToDo
                 OnMovePiece?.Invoke(PieceManager.SelectedPiece, SelectedCell);
+                OnNewTurn?.Invoke();
             }
-            OnStateChanged?.Invoke(GameStates.PieceOnBoardSelection);
+        }
+
+        public void HandleNewTurn()
+        {
+            Turn = Turn switch
+            {
+                PlayerID.Player2 => PlayerID.Player1,
+                _ => PlayerID.Player2
+            };
+            if (GameState == GameStates.PutingInitialPiece)
+            {
+                OnStateChanged?.Invoke(GameStates.SelectInitialPiece);
+            }
+            else
+            {
+                PieceManager.HandleDefeatedPieces();
+                PieceManager.PiecesNewTurn();
+                OnStateChanged?.Invoke(GameStates.PieceOnBoardSelection);
+            }
+            mazeView.UpdateMaze(_cubeController.Model.Cells[0]);
+        }
+
+        public static void HandlePieceSelected(IPieceController piece)
+        {
+            if (GameState == GameStates.SelectInitialPiece)
+            {
+                Debug.Log($"{piece} is selected");
+                OnStateChanged?.Invoke(GameStates.PutingInitialPiece);
+                SelectingCell?.Invoke();
+            }
+            else if (GameState == GameStates.PieceOnBoardSelection)
+            {
+                OnStateChanged?.Invoke(GameStates.SelectAction);
+            }
+        }
+
+        public void HandleChangeAction(ActionType action)
+        {
+            //ToDo
+        }
+
+        public void HandleAbilityUsed()
+        {
+            //ToDo
         }
         
         

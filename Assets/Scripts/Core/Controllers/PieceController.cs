@@ -54,9 +54,30 @@ namespace Core.Controllers
 
         public void Revive()
         {
-            throw new System.NotImplementedException();
+            _pieceModel = PiecesInitialData.GetInitialPiece(PieceModel.PieceType);
+            _pieceModel.SetHealth(_pieceModel.Health / 2);
         }
-        
+
+        public bool IsAlive()
+        {
+            return PieceModel.Health > 0;
+        }
+
+        public bool AbilityIsReady()
+        {
+            return PieceModel.CurrentCooldown <= 0;
+        }
+
+        public void UseAbility()
+        {
+            GameManager.OnAbilityUsed?.Invoke();
+        }
+
+        public void ReduceCooldowns()
+        {
+            PieceModel.SetCurrentCooldown(PieceModel.CurrentCooldown - 1);
+        }
+
         #endregion
     }
 }

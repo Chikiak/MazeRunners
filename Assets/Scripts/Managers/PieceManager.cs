@@ -10,20 +10,70 @@ namespace Managers
     public static class PieceManager
     {
         public static List<IPieceController>[,] PiecesMatrix { get; private set; }
+        public static List<IPieceController> DefeatedPieces { get; private set; }
         public static IPieceController SelectedPiece { get; private set; }
 
+        public static void PiecesNewTurn()
+        {
+            for (int x = 0; x < PiecesMatrix.GetLength(0); x++)
+            {
+                for (int y = 0; y < PiecesMatrix.GetLength(1); y++)
+                {
+                    if (PiecesMatrix[x, y].Count > 0)
+                    {
+                        for (int i = 0; i < PiecesMatrix[x, y].Count; i++)
+                        {
+                            var piece = PiecesMatrix[x, y][i];
+                            piece.ReduceCooldowns();
+                        }
+                    }
+                    //Attack
+                    if (PiecesMatrix[x, y].Count != 2) continue;
+                    PiecesMatrix[x, y][0].TakeDamage(PiecesMatrix[x, y][1].GetInfo().Damage);
+                    //Debug.Log($"Piece {PiecesMatrix[x, y][0].GetInfo().PieceType}: {PiecesMatrix[x, y][0].GetInfo().Health}");
+                    if(PiecesMatrix[x, y][0].IsAlive())
+                    {
+                        PiecesMatrix[x, y][1].TakeDamage(PiecesMatrix[x, y][0].GetInfo().Damage);
+                        //Debug.Log($"Piece {PiecesMatrix[x, y][1].GetInfo().PieceType}: {PiecesMatrix[x, y][1].GetInfo().Health}");
+                        if(!PiecesMatrix[x, y][1].IsAlive())
+                        {
+                            DefeatedPieces.Add(PiecesMatrix[x, y][1]);
+                            //Debug.Log($"Piece {PiecesMatrix[x, y][1].GetInfo().PieceType}: Added defeated piece");
+
+                        }
+                    }
+                    else
+                    {
+                        DefeatedPieces.Add(PiecesMatrix[x, y][0]);
+                        //Debug.Log($"Piece {PiecesMatrix[x, y][0].GetInfo().PieceType}: Added defeated piece");
+                    }
+                }
+            }
+        }
+        public static void HandleDefeatedPieces()
+        {
+            if (SelectedPiece == null) return;
+            foreach (IPieceController defeatedPiece in DefeatedPieces)
+            {
+                DefeatedPiece(defeatedPiece);
+            }
+            DefeatedPieces.Clear();
+        }
         public static void Initialize(int mazeSize)
         {
+            GameManager.OnPieceSelected += SetSelectedPiece;
             PiecesMatrix = new List<IPieceController>[mazeSize, mazeSize];
+            DefeatedPieces = new List<IPieceController>();
             for (int x = 0; x < mazeSize; x++)
                 for (int y = 0; y < mazeSize; y++)
                     PiecesMatrix[x, y] = new List<IPieceController>();
-            var newPiece = new PieceController();
-            newPiece.Initialize(PiecesInitialData.GetInitialPiece(PieceType.Healer), PlayerID.Player1);
-            AddPiece(newPiece, (4, 5));
-            SelectedPiece = newPiece;
         }
-        
+
+        private static void SetSelectedPiece(IPieceController piece)
+        {
+            SelectedPiece = piece;
+        }
+
         public static List<IPieceController> GetPiecesInCell((int x, int y) position)
         {
             return PiecesMatrix[position.x, position.y];
@@ -64,8 +114,8 @@ namespace Managers
         {
             PiecesMatrix[piece.Position.x, piece.Position.y].Remove(piece);
             (int x, int y) newPosition = RandomInitialPosition();
-            AddPiece(piece, newPosition);
             piece.Revive();
+            AddPiece(piece, newPosition);
         }
         private static void RemovePiece(IPieceController pieceController)
         {

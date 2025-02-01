@@ -41,7 +41,11 @@ namespace Managers
                     positions.Add((Position.x + x, Position.y + y));
                 }
             }
-            positions.Remove(((Position.x, Position.y)));
+
+            if (GameManager.GameState == GameStates.PutingInitialPiece)
+            {
+                positions.Remove(((Position.x, Position.y)));
+            }
             return positions;
         }
 
