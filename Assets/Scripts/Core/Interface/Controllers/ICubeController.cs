@@ -11,7 +11,7 @@ namespace Core.Interface.Controllers
         
         Action<List<(int x, int y)>> OnCellsChanged { get; set; }
         
-        void InitializeMaze(int size); //Esto tiene que recibir los datos, y mandar a generar el laberinto en cada cara e inicializar los puntos
+        void InitializeMaze(int size, int totalPoints); //Esto tiene que recibir los datos, y mandar a generar el laberinto en cada cara e inicializar los puntos
         void Rotate(bool horizontal, bool clockwise, int index);
         void GenerateMaze();
     }

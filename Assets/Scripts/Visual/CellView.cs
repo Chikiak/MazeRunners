@@ -65,6 +65,7 @@ namespace Visual
                     throw new Exception($"CellView: Invalid trap type: {cell.Trap.TrapType}");
             }
             UpdatePiecesInCell(PieceManager.PiecesMatrix[cell.Position.x, cell.Position.y]);
+            UpdatePointsView(cell.Points);
         }
 
         private void UpdatePiecesInCell(List<IPieceController> pieceControllers)
@@ -89,6 +90,31 @@ namespace Visual
                     PlayerID.Player2 => new Color(0.2f, 0.2f, 0.2f, 1f),
                     _ => Color.red
                 };
+            }
+        }
+        private void UpdatePointsView(int points)
+        {
+            var pointsImage = pointsView.GetComponent<Image>();
+            if (pointsImage == null) return;
+            if (points <= 0)
+            {
+                pointsImage.color = new Color(1f, 1f, 1f, 0f);
+            }
+            else if (points <= 1)
+            {
+                pointsImage.color = new Color(0.7f, 0.5f, 0f, 1f);
+            } 
+            else if (points <= 3)
+            {
+                pointsImage.color = new Color(0.7f, 0.7f, 0.7f, 1f);
+            }
+            else if (points <= 5)
+            {
+                pointsImage.color = new Color(1f, 1f, 0f, 1f);
+            }
+            else if (points <= 10)
+            {
+                pointsImage.color = new Color(0.7f, 1f, 1f, 1f);
             }
         }
         

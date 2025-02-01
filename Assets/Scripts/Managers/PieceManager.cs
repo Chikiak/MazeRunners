@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Core.Controllers;
 using Core.Interface.Controllers;
 using Core.Interface.Models;
@@ -9,6 +10,8 @@ namespace Managers
 {
     public static class PieceManager
     {
+        
+        public static Action<IPieceController> OnDefeated;
         public static List<IPieceController>[,] PiecesMatrix { get; private set; }
         public static List<IPieceController> DefeatedPieces { get; private set; }
         public static IPieceController SelectedPiece { get; private set; }
@@ -51,6 +54,7 @@ namespace Managers
             if (SelectedPiece == null) return;
             foreach (IPieceController defeatedPiece in DefeatedPieces)
             {
+                OnDefeated?.Invoke(defeatedPiece);
                 DefeatedPiece(defeatedPiece);
             }
             DefeatedPieces.Clear();

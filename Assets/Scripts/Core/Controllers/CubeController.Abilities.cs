@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.Interface.Controllers;
+using Core.Interface.Models;
 using Managers;
 using UnityEngine;
 
@@ -128,10 +129,16 @@ namespace Core.Controllers
             }
             
         }
-
         private void ThiefAbility(IPieceController pieceController)
         {
-            //ToDo
+            ICell cell;
+            List<(int x, int y)> positions = GetCellsManager.GetReachablePositions(RangeType.Square, 3, pieceController.Position, _size);
+            foreach ((int x, int y) position in positions)
+            {
+                cell = Model.Cells[0][position.x, position.y];
+                pieceController.PieceModel.SetPoints(pieceController.PieceModel.Points + cell.Points);
+                cell.SetPoints(0);
+            }
         }
 
         private void ExplorerAbility(IPieceController pieceController)

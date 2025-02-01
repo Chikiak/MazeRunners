@@ -14,7 +14,7 @@ namespace Core.Interface.Models
         int AbilityCooldown { get; }
         int CurrentCooldown { get; }
         StatusEffect CurrentStatus { get; }
-        float Points { get; }
+        int Points { get; }
 
         RangeType SpecialRangeType { get;}
         int SpecialRange { get; }
@@ -29,7 +29,7 @@ namespace Core.Interface.Models
         void SetAbilityCooldown(int cooldown);
         void SetCurrentCooldown(int currentCooldown);
         void SetCurrentStatus(StatusEffect statusEffect);
-        void SetPoints(float points);
+        void SetPoints(int points);
         void SetRangeType(RangeType rangeType);
         void SetSpecialRange(int specialRange);
     }

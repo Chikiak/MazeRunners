@@ -15,12 +15,17 @@ namespace Core.Controllers
         public IEnumerator StartMov()
         {
             var piece = PieceManager.SelectedPiece;
+            ICell cell;
             List<(int x, int y)> cells = new List<(int x, int y)>();
             cells.Add(PieceManager.SelectedPiece.Position);
             var path = _directionsToCells[_directionIndex];
             foreach (var direction in path)
             {
                 PieceManager.MovePiece(piece, direction);
+                cell = Model.Cells[0][PieceManager.SelectedPiece.Position.x, PieceManager.SelectedPiece.Position.y];
+                piece.PieceModel.SetPoints(piece.PieceModel.Points + cell.Points);
+                _remainingPoints += cell.Points;
+                cell.SetPoints(0);
                 cells.Add(PieceManager.SelectedPiece.Position);
                 OnCellsChanged?.Invoke(cells);
                 yield return new WaitForSeconds(0.3f);

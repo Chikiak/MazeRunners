@@ -4,16 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="111dc0f2-babf-4e7c-9e5e-d9002130272b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.Abilities.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.Abilities.cs.meta" afterDir="false" />
+    <list default="true" id="111dc0f2-babf-4e7c-9e5e-d9002130272b" name="Changes" comment="Added rest of pieces, and working Lancer and Gladiator">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.Points.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.Points.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MazeRunners/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MazeRunners/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.Abilities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.Abilities.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.Movement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.Movement.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/Enums.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/Enums.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Controllers/ICubeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Controllers/ICubeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Models/IPieceModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Models/IPieceModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Models/PieceModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Models/PieceModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/PieceManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/PieceManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/PiecesInitialData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/PiecesInitialData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Visual/CellView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/CellView.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,7 +148,7 @@
       <workItem from="1738263549589" duration="46467000" />
       <workItem from="1738332499400" duration="3292000" />
       <workItem from="1738338760661" duration="2186000" />
-      <workItem from="1738346041187" duration="24460000" />
+      <workItem from="1738346041187" duration="26439000" />
     </task>
     <task id="LOCAL-00001" summary="Added Non Interface implemetations. Added PieceManager, InitialData, Traps">
       <option name="closed" value="true" />
@@ -195,7 +198,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738375885162</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added rest of pieces, and working Lancer and Gladiator">
+      <option name="closed" value="true" />
+      <created>1738382881203</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1738382881203</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,7 +228,8 @@
     <MESSAGE value="It WOOOOORKS, added Movement" />
     <MESSAGE value="Added TrapGeneration and view" />
     <MESSAGE value="Added Piece Selection, Added Working Abilities, Improved Actions Control, Added Fights and Defeated Pieces" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Piece Selection, Added Working Abilities, Improved Actions Control, Added Fights and Defeated Pieces" />
+    <MESSAGE value="Added rest of pieces, and working Lancer and Gladiator" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added rest of pieces, and working Lancer and Gladiator" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

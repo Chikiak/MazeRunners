@@ -15,7 +15,7 @@ namespace Core.Models
         public int AbilityCooldown { get; private set; }
         public int CurrentCooldown { get; private set; }
         public StatusEffect CurrentStatus { get; private set; }
-        public float Points { get; private set; }
+        public int Points { get; private set; }
         public RangeType SpecialRangeType { get; private set; }
         public int SpecialRange { get; private set; }
 
@@ -80,7 +80,7 @@ namespace Core.Models
             CurrentStatus = statusEffect;
         }
 
-        public void SetPoints(float points)
+        public void SetPoints(int points)
         {
             Points = points;
         }

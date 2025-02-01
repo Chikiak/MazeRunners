@@ -24,8 +24,6 @@ namespace Managers
         [SerializeField] private AMazeView mazeView;
         [SerializeField] private InputManager inputManager;
         
-        //ToDo: [SerializeField] private SOsManager _SOsManager;
-        //[SerializeField] private GameObject AuxPanel;
         #endregion
         
         #region Actions
@@ -215,7 +213,7 @@ namespace Managers
         private void InitializeMaze()
         {
             _cubeController = new CubeController();//(_SOsManager, maze, generator, mazeView, totalPoints);
-            _cubeController.InitializeMaze(mazeSize);
+            _cubeController.InitializeMaze(mazeSize, totalPoints);
             PieceManager.Initialize(mazeSize);
             _cubeController.OnCellsChanged += UpdateCells;
         }
