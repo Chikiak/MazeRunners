@@ -4,33 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="111dc0f2-babf-4e7c-9e5e-d9002130272b" name="Changes" comment="Added Piece Selection, Added Working Abilities, Improved Actions Control, Added Fights and Defeated Pieces">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Actions.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Actions/ActionMenu.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Actions/ActionMenu.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Selection/AuxPanel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Selection/AuxPanel.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Selection/HandleSelectPiece.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Selection/HandleSelectPiece.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Selection/SelectionPanel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Selection/SelectionPanel.cs.meta" afterDir="false" />
+    <list default="true" id="111dc0f2-babf-4e7c-9e5e-d9002130272b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.Abilities.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.Abilities.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MazeRunners/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MazeRunners/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.Movement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.Movement.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/CubeController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/MazeGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/MazeGenerator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/PieceController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Controllers/PieceController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Controllers/IMazeGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Controllers/IMazeGenerator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Controllers/IPieceController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Controllers/IPieceController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Models/IPieceModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Interface/Models/IPieceModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Models/PieceModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Models/PieceModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/Enums.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/Enums.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/GetCellsManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GetCellsManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/MazeRotationArrows.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/MazeRotationArrows.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/PieceManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/PieceManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/PiecesInitialData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/PiecesInitialData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Visual/CellView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/CellView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Visual/Pieces/PieceView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Visual/Pieces/PieceView.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,13 +99,15 @@
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="37388">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="37388" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
-        <list />
+        <list>
+          <MonoRuntime />
+        </list>
       </option>
       <option name="selectedOptions">
         <list />
@@ -160,7 +145,7 @@
       <workItem from="1738263549589" duration="46467000" />
       <workItem from="1738332499400" duration="3292000" />
       <workItem from="1738338760661" duration="2186000" />
-      <workItem from="1738346041187" duration="17937000" />
+      <workItem from="1738346041187" duration="24460000" />
     </task>
     <task id="LOCAL-00001" summary="Added Non Interface implemetations. Added PieceManager, InitialData, Traps">
       <option name="closed" value="true" />
@@ -202,7 +187,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738334173261</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added Piece Selection, Added Working Abilities, Improved Actions Control, Added Fights and Defeated Pieces">
+      <option name="closed" value="true" />
+      <created>1738375885162</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1738375885162</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

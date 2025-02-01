@@ -58,7 +58,14 @@ namespace Core.Controllers
                 return;
             }
             GameManager.OnStateChanged?.Invoke(GameStates.CellSelection);
-            SetSelectableCells(RangeType.Path, piece.PieceModel.RemainingMovs, piece.Position);
+            if (GameManager.ActualAction == ActionType.Move)
+            {
+                SetSelectableCells(RangeType.Path, piece.PieceModel.RemainingMovs, piece.Position);
+            }
+            else if (GameManager.ActualAction == ActionType.UseAbility)
+            {
+                SetSelectableCells(piece.PieceModel.SpecialRangeType, piece.PieceModel.SpecialRange, piece.Position);
+            }
         }
         private List<(int x, int y)> GetCellsInRange(RangeType rangeType, int distance, (int, int) pos)
         {

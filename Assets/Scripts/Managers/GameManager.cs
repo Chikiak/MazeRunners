@@ -147,6 +147,10 @@ namespace Managers
                 OnMovePiece?.Invoke(PieceManager.SelectedPiece, SelectedCell);
                 OnNewTurn?.Invoke();
             }
+            else if (ActualAction == ActionType.UseAbility)
+            {
+                OnAbilityUsed?.Invoke();
+            }
         }
 
         public void HandleNewTurn()
@@ -185,12 +189,11 @@ namespace Managers
 
         public void HandleChangeAction(ActionType action)
         {
-            //ToDo
+            ActualAction = action;
         }
-
         public void HandleAbilityUsed()
         {
-            //ToDo
+            ActualAction = ActionType.UseAbility;
         }
         
         

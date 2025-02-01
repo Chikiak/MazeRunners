@@ -25,27 +25,23 @@ namespace Managers
                         {
                             var piece = PiecesMatrix[x, y][i];
                             piece.ReduceCooldowns();
+                            if (!piece.IsAlive()) DefeatedPieces.Add(PiecesMatrix[x, y][i]);
                         }
                     }
                     //Attack
                     if (PiecesMatrix[x, y].Count != 2) continue;
                     PiecesMatrix[x, y][0].TakeDamage(PiecesMatrix[x, y][1].GetInfo().Damage);
-                    //Debug.Log($"Piece {PiecesMatrix[x, y][0].GetInfo().PieceType}: {PiecesMatrix[x, y][0].GetInfo().Health}");
                     if(PiecesMatrix[x, y][0].IsAlive())
                     {
                         PiecesMatrix[x, y][1].TakeDamage(PiecesMatrix[x, y][0].GetInfo().Damage);
-                        //Debug.Log($"Piece {PiecesMatrix[x, y][1].GetInfo().PieceType}: {PiecesMatrix[x, y][1].GetInfo().Health}");
                         if(!PiecesMatrix[x, y][1].IsAlive())
                         {
                             DefeatedPieces.Add(PiecesMatrix[x, y][1]);
-                            //Debug.Log($"Piece {PiecesMatrix[x, y][1].GetInfo().PieceType}: Added defeated piece");
-
                         }
                     }
                     else
                     {
                         DefeatedPieces.Add(PiecesMatrix[x, y][0]);
-                        //Debug.Log($"Piece {PiecesMatrix[x, y][0].GetInfo().PieceType}: Added defeated piece");
                     }
                 }
             }
@@ -68,17 +64,14 @@ namespace Managers
                 for (int y = 0; y < mazeSize; y++)
                     PiecesMatrix[x, y] = new List<IPieceController>();
         }
-
         private static void SetSelectedPiece(IPieceController piece)
         {
             SelectedPiece = piece;
         }
-
         public static List<IPieceController> GetPiecesInCell((int x, int y) position)
         {
             return PiecesMatrix[position.x, position.y];
         }
-
         public static bool AddPiece(IPieceController pieceController, (int x, int y) position)
         {
             if (!(ValidatePosition(position) && ValidateMove(position))) return false;
@@ -86,7 +79,6 @@ namespace Managers
             pieceController.SetPosition((position.x, position.y));
             return true;
         }
-
         public static bool MovePiece(IPieceController pieceController, Direction direction)
         {
             (int x, int y) newPosition = pieceController.Position;
@@ -121,14 +113,12 @@ namespace Managers
         {
             PiecesMatrix[pieceController.Position.x, pieceController.Position.y].Remove(pieceController);
         }
-
         private static bool ValidatePosition((int x, int y) position)
         {
             if(position.x < 0 || position.y < 0) return false;
             if(position.x >= PiecesMatrix.GetLength(0) || position.y >= PiecesMatrix.GetLength(1)) return false;
             return true;
         }
-
         private static bool ValidateMove((int x, int y) position)
         {
             if(PiecesMatrix[position.x, position.y].Count > 1) return false;

@@ -16,7 +16,11 @@
     public enum PieceType
     {
         Healer,
-        Destroyer
+        Destroyer,
+        Lancer,
+        Gladiator,
+        Thief,
+        Explorer
     }
 
     public enum StatusEffect
