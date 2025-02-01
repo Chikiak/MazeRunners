@@ -26,6 +26,7 @@ namespace Core.Controllers
                 piece.PieceModel.SetPoints(piece.PieceModel.Points + cell.Points);
                 _remainingPoints += cell.Points;
                 cell.SetPoints(0);
+                if(cell.Trap.TrapType != TrapType.Nothing) OnTrap?.Invoke(piece, cell.Trap);
                 cells.Add(PieceManager.SelectedPiece.Position);
                 OnCellsChanged?.Invoke(cells);
                 yield return new WaitForSeconds(0.3f);

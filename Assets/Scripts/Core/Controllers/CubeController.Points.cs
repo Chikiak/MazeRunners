@@ -9,7 +9,7 @@ namespace Core.Controllers
     {
         #region Points
 
-        private Random _random = new Random();
+        private static Random _random = new Random();
         private int[] _pointsValue = { 1, 3, 5 };
 
         public void InitializePoints()

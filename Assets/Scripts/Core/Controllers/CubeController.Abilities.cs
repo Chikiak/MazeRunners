@@ -139,6 +139,7 @@ namespace Core.Controllers
                 pieceController.PieceModel.SetPoints(pieceController.PieceModel.Points + cell.Points);
                 cell.SetPoints(0);
             }
+            GameManager.UpdateCellsView?.Invoke(positions);
         }
 
         private void ExplorerAbility(IPieceController pieceController)

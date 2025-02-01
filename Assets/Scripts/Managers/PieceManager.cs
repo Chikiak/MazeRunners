@@ -113,7 +113,8 @@ namespace Managers
             piece.Revive();
             AddPiece(piece, newPosition);
         }
-        private static void RemovePiece(IPieceController pieceController)
+
+        public static void RemovePiece(IPieceController pieceController)
         {
             PiecesMatrix[pieceController.Position.x, pieceController.Position.y].Remove(pieceController);
         }
@@ -128,7 +129,7 @@ namespace Managers
             if(PiecesMatrix[position.x, position.y].Count > 1) return false;
             return true;
         }
-        private static (int x, int y) RandomInitialPosition()
+        public static (int x, int y) RandomInitialPosition()
         {
             Random random = new Random();
             List<(int x, int y)> initialCells = new List<(int, int)> ();

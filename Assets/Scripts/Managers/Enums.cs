@@ -10,7 +10,9 @@
     public enum TrapType
     {
         Nothing,
-        Spikes
+        Spikes,
+        Teleport,
+        AffectStats
     }
 
     public enum PieceType
@@ -50,6 +52,7 @@
     public enum GameStates
     {
         Starting,
+        Rotate,
         SelectInitialPiece,
         PutingInitialPiece,
         PieceOnBoardSelection,

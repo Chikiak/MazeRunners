@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Core.Controllers;
 using Core.Interface.Controllers;
 using Core.Interface.Models;
+using TMPro;
 
 namespace Managers
 {
@@ -16,13 +17,19 @@ namespace Managers
         [SerializeField, Range(3, 7)] private int mazeSize = 10;
 
         [SerializeField, Range(6, 6)] private int numberOfFaces = 6;
-        [SerializeField, Range(1, 100)] private int desarmMoves = 10;
+        [SerializeField, Range(10, 20)] private int desarmMoves = 10;
         [SerializeField, Range(1, 4)] private int piecesInTeam = 1;
         [SerializeField, Range(20, 100)] private int totalPoints = 50;
         
         [Header("References")]
         [SerializeField] private AMazeView mazeView;
         [SerializeField] private InputManager inputManager;
+        [SerializeField] private int TotalRounds;
+        [SerializeField] private GameObject Messages;
+        [SerializeField] private TMP_Text MessageText;
+        private int PointsPlayer1=0;
+        private int PointsPlayer2=0;
+        public PlayerID Winner;
         
         #endregion
         
@@ -41,6 +48,7 @@ namespace Managers
         public static Action<List<(int x,int y)>> UpdateCellsView;
         public static Action<ActionType> OnChangeActualAction;
         public static Action OnAbilityUsed;
+        public static Action OnGameFinished;
 
 
         private void SubscribeToActions()
@@ -55,8 +63,8 @@ namespace Managers
             OnNewTurn += HandleNewTurn;
             OnChangeActualAction += HandleChangeAction;
             OnAbilityUsed += HandleAbilityUsed;
+            OnGameFinished += GetWinner;
         }
-
 
         #endregion
         
@@ -82,6 +90,7 @@ namespace Managers
             OnGenerateNewMaze?.Invoke();
             OnShowFace?.Invoke(0);
             OnStateChanged?.Invoke(GameStates.SelectInitialPiece);
+            
         }
         private void Awake()
         {
@@ -108,7 +117,7 @@ namespace Managers
         }
         private void HandleRotate(bool isRow, bool clockwise, int index)
         {
-            if (GameState != GameStates.PieceOnBoardSelection) return;
+            if (GameState != GameStates.PieceOnBoardSelection && GameState != GameStates.Rotate) return;
             _cubeController.Rotate(isRow, clockwise, index);
             //ToDo: Actualizar solo parte cambiada
             mazeView.UpdateMaze(_cubeController.Model.Cells[0]);
@@ -116,6 +125,7 @@ namespace Managers
         }
         private void HandleDesarmMaze()
         {
+            GameState = GameStates.Rotate;
             StartCoroutine(DesarmMaze(desarmMoves));
         }
         private void HandleStateChanged(GameStates newState)
@@ -137,7 +147,7 @@ namespace Managers
                 OnNewTurn?.Invoke();
                 if (nOfPiecesInMaze == Instance.piecesInTeam * 2)
                 {
-                    OnStateChanged?.Invoke(GameStates.PieceOnBoardSelection);
+                    OnDesarmMaze?.Invoke();
                 }
             }
             else if (ActualAction == ActionType.Move)
@@ -153,17 +163,21 @@ namespace Managers
 
         public void HandleNewTurn()
         {
+            if (TotalRounds == 0) OnGameFinished?.Invoke();
             Turn = Turn switch
             {
                 PlayerID.Player2 => PlayerID.Player1,
                 _ => PlayerID.Player2
             };
+            if (Turn == PlayerID.Player2) TotalRounds--;
             if (GameState == GameStates.PutingInitialPiece)
             {
                 OnStateChanged?.Invoke(GameStates.SelectInitialPiece);
             }
             else
             {
+                Messages.SetActive(true);
+                MessageText.text = $"New Turn: {Turn}";
                 PieceManager.HandleDefeatedPieces();
                 PieceManager.PiecesNewTurn();
                 OnStateChanged?.Invoke(GameStates.PieceOnBoardSelection);
@@ -220,13 +234,13 @@ namespace Managers
         
         private IEnumerator DesarmMaze(int numberOfMoves)
         {
-            if (GameManager.GameState != GameStates.PieceOnBoardSelection) yield break;
             for (int i = 0; i < numberOfMoves; i++)
             {
                 RandomRotate();
 
                 yield return new WaitForSeconds(0.2f);
             }
+            OnStateChanged?.Invoke(GameStates.PieceOnBoardSelection);
         }
         private void RandomRotate()
         {
@@ -245,6 +259,25 @@ namespace Managers
             }
             
             OnRotate?.Invoke(horizontal, clockwise, r);
+        }
+
+        private void GetWinner()
+        {
+            for (int i = 0; i < mazeSize; i++)
+            {
+                for (int j = 0; j < mazeSize; j++)
+                {
+                    if (PieceManager.PiecesMatrix[i,j].Count < 1) continue;
+                    foreach (var piece in PieceManager.PiecesMatrix[i,j])
+                    {
+                        if (piece.PlayerID == PlayerID.Player1) PointsPlayer1 += piece.PieceModel.Points;
+                        else PointsPlayer2 += piece.PieceModel.Points;
+                    }
+                }
+            }
+            Winner = PointsPlayer1 > PointsPlayer2 ? PlayerID.Player1 : PlayerID.Player2;
+            Messages.SetActive(true);
+            MessageText.text = $"Winner: {Winner}";
         }
         
         #endregion

@@ -19,6 +19,7 @@ namespace Core.Controllers
         private int _directionIndex;
         private int _remainingPoints;
         public Action<List<(int x, int y)>> OnCellsChanged { get; set; }
+        public static Action<IPieceController, ITrap> OnTrap; 
 
         public void InitializeMaze(int size, int totalPoints)
         {
@@ -29,6 +30,7 @@ namespace Core.Controllers
             GameManager.OnSelectedCell += HandleSelectedCell;
             GameManager.OnAbilityUsed += HandleAblityUsed;
             PieceManager.OnDefeated += PointsPieceToPosition;
+            OnTrap += ActivateTrap;
             _size = size;
         }
 

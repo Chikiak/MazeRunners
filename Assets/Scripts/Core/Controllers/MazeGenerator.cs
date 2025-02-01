@@ -16,7 +16,7 @@ namespace Core.Controllers
             _width = width;
             _height = height;
             _cycleChance = cycleChance;
-            _trapGenerator = new TrapGenerator(width, _random, 1, trapChance);
+            _trapGenerator = new TrapGenerator(width, _random, 3, trapChance);
             
             return GenerateFace();
         }
@@ -55,6 +55,8 @@ namespace Core.Controllers
                     {
                         TrapType.Nothing => new Cell((x, y), TrapType.Nothing),
                         TrapType.Spikes => new Cell((x, y), TrapType.Spikes),
+                        TrapType.Teleport => new Cell((x, y), TrapType.Teleport),
+                        TrapType.AffectStats => new Cell((x, y), TrapType.AffectStats),
                         _ => throw new Exception($"Unexpected trap type {trapMatrix[x, y]}")
                     };
                 }
