@@ -1,87 +1,90 @@
 ﻿using System;
 using System.Collections.Generic;
-using Core.Interfaces;
-using Core.Interfaces.Entities;
-using UnityEditor.U2D.Aseprite;
-using UnityEngine;
+using Core.Interface.Models;
+using Managers;
 
 namespace Core.Models
 {
     public class Cell : ICell
     {
-        #region Properties
-        private (int, int) _position;
-        public (int, int) Position => _position;
-        
-        private bool[] _walls;
-        public bool[] Walls => _walls;
+        public (int x, int y) Position { get; private set; }
+        public int Points { get; private set; }
+        public Dictionary<Direction, bool> Walls { get; private set; }
+        public ITrap Trap { get; private set; }
+        public bool IsSelectable { get; private set; }
 
-        private bool _selectable;
-        public bool Selectable => _selectable;
-        
-        private List<ITokenController> _tokens;
-        public List<ITokenController> Tokens => _tokens;
-        
-        private TrapTypes _type = TrapTypes.NoTrap;
-        public TrapTypes Type => _type;
-        #endregion
-
-        #region Methods
-        public Cell((int, int) position)
+        public Cell((int x, int y) position, TrapType trapType)
         {
-            _position = position;
-            _walls = new bool[4];
-            for (int i = 0; i < _walls.Length; i++)
-            { 
-                _walls[i] = true;
+            SetPosition(position);
+            SetPoints(0);
+            SetSelectable(false);
+            Walls = new Dictionary<Direction, bool>();
+            foreach (Direction direction in Enum.GetValues(typeof(Direction)))
+            {
+                Walls[direction] = true;
             }
+            Trap = TrapsInitialData.GetInitialTrap(trapType);
         }
+
         public Cell(ICell cell)
         {
-            _position = cell.Position;
-            _walls = cell.Walls;
-            _tokens = new List<ITokenController>();
-            SetSelectable(cell.Selectable);
-            if (cell.Tokens == null) return;
-            for (int i = 0; i < cell.Tokens.Count; i++)
-            {
-                AddToken(cell.Tokens[i]);
-            }
-        }
-
-        public void SetType(TrapTypes type)
-        {
-            _type = type;
-        }
-        public void SetWall(Directions direction, bool value)
-        {
-            _walls[(int) direction] = value;
-        }
-
-        public void AddToken(ITokenController token)
-        {
-            _tokens.Add(token);
-        }
-
-        public void RemoveToken(ITokenController token)
-        {
-            _tokens.Remove(token);
-        }
-
-        public void ClearTokens()
-        {
-            _tokens.Clear();
+            Walls = new Dictionary<Direction, bool>();
+            SetPosition(cell.Position);
+            SetPoints(cell.Points);
+            SetWalls(cell.Walls);
+            SetSelectable(cell.IsSelectable);
+            Trap = cell.Trap;
         }
 
         public void SetSelectable(bool selectable)
         {
-            _selectable = selectable;
+            IsSelectable = selectable;
+        }
+        
+        public void SetPosition((int x, int y) newPosition)
+        {
+            Position = newPosition;
         }
 
-        public virtual void ApplyEffects()
+        public void SetPoints(int points)
         {
-            return;
+            Points = points;
         }
-        #endregion
+
+        public void SetWalls(Dictionary<Direction, bool> newWalls)
+        {
+            foreach (Direction direction in Enum.GetValues(typeof(Direction)))
+            {
+                SetWall(direction, newWalls[direction]);
+            }
+        }
+
+        public void SetWall(Direction direction, bool value)
+        {
+            Walls[direction] = value;
+        }
+        public void RotateWalls(bool clockwise)
+        {
+            var newWalls = new Dictionary<Direction, bool>(); 
+            if (clockwise)
+            {
+                newWalls[Direction.Up] = Walls[Direction.Left];
+                newWalls[Direction.Right] = Walls[Direction.Up];
+                newWalls[Direction.Down] = Walls[Direction.Right];
+                newWalls[Direction.Left] = Walls[Direction.Down];
+            }
+            else
+            {
+                newWalls[Direction.Up] = Walls[Direction.Right];
+                newWalls[Direction.Right] = Walls[Direction.Down];
+                newWalls[Direction.Down] = Walls[Direction.Left];
+                newWalls[Direction.Left] = Walls[Direction.Up];
+            }
+
+            foreach (var d in Enum.GetValues(typeof(Direction)))
+            {
+                SetWall((Direction)d, newWalls[(Direction)d]);
+            }
+        }
     }
 }
