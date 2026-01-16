@@ -3,8 +3,16 @@ using Core.Models;
 
 namespace Managers
 {
+    /// <summary>
+    /// Factory class for creating piece models with initial data.
+    /// </summary>
     public static class PiecesInitialData
     {
+        /// <summary>
+        /// Creates a new piece model with initial data for the specified piece type.
+        /// </summary>
+        /// <param name="pieceType">The type of piece to create.</param>
+        /// <returns>The initialized piece model.</returns>
         public static IPieceModel GetInitialPiece(PieceType pieceType)
         {
             return pieceType switch
@@ -15,11 +23,13 @@ namespace Managers
                 PieceType.Gladiator => GetNewGladiator(),
                 PieceType.Explorer => GetNewExplorer(),
                 PieceType.Thief => GetNewThief(),
+                PieceType.Archer => GetNewArcher(),
+                PieceType.Tank => GetNewTank(),
                 _ => null
             };
         }
 
-        static IPieceModel GetNewHealer()
+        private static IPieceModel GetNewHealer()
         {
             IPieceModel newModel = new PieceModel();
             newModel.SetPiece(PieceType.Healer);
@@ -37,7 +47,8 @@ namespace Managers
             newModel.SetSpecialRange(3);
             return newModel;
         }
-        static IPieceModel GetNewLancer()
+        
+        private static IPieceModel GetNewLancer()
         {
             IPieceModel newModel = new PieceModel();
             newModel.SetPiece(PieceType.Lancer);
@@ -55,7 +66,8 @@ namespace Managers
             newModel.SetSpecialRange(2);
             return newModel;
         }
-        static IPieceModel GetNewDestroyer()
+        
+        private static IPieceModel GetNewDestroyer()
         {
             IPieceModel newModel = new PieceModel();
             newModel.SetPiece(PieceType.Destroyer);
@@ -69,9 +81,12 @@ namespace Managers
             newModel.SetCurrentCooldown(3);
             newModel.SetCurrentStatus(StatusEffect.None);
             newModel.SetDamage(10);
+            newModel.SetRangeType(RangeType.Diamond);
+            newModel.SetSpecialRange(1);
             return newModel;
         }
-        static IPieceModel GetNewGladiator()
+        
+        private static IPieceModel GetNewGladiator()
         {
             IPieceModel newModel = new PieceModel();
             newModel.SetPiece(PieceType.Gladiator);
@@ -85,9 +100,12 @@ namespace Managers
             newModel.SetCurrentCooldown(5);
             newModel.SetCurrentStatus(StatusEffect.None);
             newModel.SetDamage(8);
+            newModel.SetRangeType(RangeType.Square);
+            newModel.SetSpecialRange(1);
             return newModel;
         }
-        static IPieceModel GetNewThief()
+        
+        private static IPieceModel GetNewThief()
         {
             IPieceModel newModel = new PieceModel();
             newModel.SetPiece(PieceType.Thief);
@@ -105,7 +123,8 @@ namespace Managers
             newModel.SetSpecialRange(2);
             return newModel;
         }
-        static IPieceModel GetNewExplorer()
+        
+        private static IPieceModel GetNewExplorer()
         {
             IPieceModel newModel = new PieceModel();
             newModel.SetPiece(PieceType.Explorer);
@@ -119,8 +138,47 @@ namespace Managers
             newModel.SetCurrentCooldown(4);
             newModel.SetCurrentStatus(StatusEffect.None);
             newModel.SetDamage(4);
+            newModel.SetRangeType(RangeType.Diamond);
+            newModel.SetSpecialRange(3);
             return newModel;
         }
-
+        
+        private static IPieceModel GetNewArcher()
+        {
+            IPieceModel newModel = new PieceModel();
+            newModel.SetPiece(PieceType.Archer);
+            newModel.SetMaxHealth(25);
+            newModel.SetHealth(25);
+            newModel.SetMaxSpeed(2);
+            newModel.SetRemainingMovs(2);
+            newModel.SetSpeed(2);
+            newModel.SetPoints(0);
+            newModel.SetAbilityCooldown(3);
+            newModel.SetCurrentCooldown(3);
+            newModel.SetCurrentStatus(StatusEffect.None);
+            newModel.SetDamage(12);
+            newModel.SetRangeType(RangeType.Line);
+            newModel.SetSpecialRange(4);
+            return newModel;
+        }
+        
+        private static IPieceModel GetNewTank()
+        {
+            IPieceModel newModel = new PieceModel();
+            newModel.SetPiece(PieceType.Tank);
+            newModel.SetMaxHealth(80);
+            newModel.SetHealth(80);
+            newModel.SetMaxSpeed(1);
+            newModel.SetRemainingMovs(1);
+            newModel.SetSpeed(1);
+            newModel.SetPoints(0);
+            newModel.SetAbilityCooldown(6);
+            newModel.SetCurrentCooldown(6);
+            newModel.SetCurrentStatus(StatusEffect.None);
+            newModel.SetDamage(6);
+            newModel.SetRangeType(RangeType.Square);
+            newModel.SetSpecialRange(1);
+            return newModel;
+        }
     }
 }

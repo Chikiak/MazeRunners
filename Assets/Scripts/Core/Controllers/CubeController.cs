@@ -5,7 +5,6 @@ using Core.Interface.Models;
 using Core.Models;
 using Managers;
 using UnityEngine;
-using Random = System.Random;
 
 namespace Core.Controllers
 {
@@ -28,7 +27,7 @@ namespace Core.Controllers
             _mazeGenerator = new MazeGenerator();
             GameManager.SelectingCell += SetSelectableCells;
             GameManager.OnSelectedCell += HandleSelectedCell;
-            GameManager.OnAbilityUsed += HandleAblityUsed;
+            GameManager.OnAbilityUsed += HandleAbilityUsed;
             PieceManager.OnDefeated += PointsPieceToPosition;
             OnTrap += ActivateTrap;
             _size = size;

@@ -1,17 +1,22 @@
 ﻿using System;
+using Core.Interface.Controllers;
 using Managers;
 
 namespace Core.Controllers
 {
-    public class TrapGenerator
+    /// <summary>
+    /// Generates trap placement for maze cells.
+    /// </summary>
+    public class TrapGenerator : ITrapGenerator
     {
-        private int _size;
-        private Random _random;
-        private TrapType[,] _trapsMatrix;
-        private int _trapChance;
-
-        private int _numberOfTrapsTypes;
+        private readonly int _size;
+        private readonly Random _random;
+        private readonly TrapType[,] _trapsMatrix;
+        private readonly int _trapChance;
+        private readonly int _numberOfTrapsTypes;
+        
         public int NumberOfTrapsTypes => _numberOfTrapsTypes;
+        
         public TrapGenerator(int size, Random random, int numberOfTrapsTypes, int trapChance)
         {
             _size = size;
@@ -30,9 +35,12 @@ namespace Core.Controllers
                     if (_random.Next(100) < _trapChance)
                     {
                         int newTrap = _random.Next(_numberOfTrapsTypes) + 1;
-                        _trapsMatrix[i, j] = (TrapType) newTrap;
+                        _trapsMatrix[i, j] = (TrapType)newTrap;
                     } 
-                    else {_trapsMatrix[i, j] = 0;}
+                    else 
+                    {
+                        _trapsMatrix[i, j] = TrapType.Nothing;
+                    }
                 }
             }
         }
