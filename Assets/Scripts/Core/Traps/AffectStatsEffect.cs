@@ -11,16 +11,17 @@ namespace Core.Traps
     public class AffectStatsEffect : ITrapEffect
     {
         private static readonly Random Random = new Random();
-        private const int MinSpeedReduction = 50; // Percentage
-        private const int MaxSpeedReduction = 100; // Percentage  
+        private const int MinSpeedReduction = 20; // Percentage reduction (20-50%)
+        private const int MaxSpeedReduction = 50; // Percentage reduction  
         private const int MinDamage = 0;
         private const int MaxDamage = 6;
         
         public void Activate(IPieceController piece, ITrap trap)
         {
-            // Fixed: Use proper floating point division for speed reduction
-            int speedReductionPercent = Random.Next(MinSpeedReduction, MaxSpeedReduction);
-            int newSpeed = piece.PieceModel.Speed * speedReductionPercent / 100;
+            // Calculate speed reduction (reduce speed by the percentage)
+            int speedReductionPercent = Random.Next(MinSpeedReduction, MaxSpeedReduction + 1);
+            int newSpeed = piece.PieceModel.Speed * (100 - speedReductionPercent) / 100;
+            if (newSpeed < 1) newSpeed = 1; // Minimum speed of 1
             piece.PieceModel.SetSpeed(newSpeed);
             
             // Apply damage
