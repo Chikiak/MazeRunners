@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Core.Interface.Controllers;
 using Core.Interface.Models;
 
@@ -9,8 +8,7 @@ namespace Core.Controllers
     {
         #region Points
 
-        private static Random _random = new Random();
-        private int[] _pointsValue = { 1, 3, 5 };
+        private static readonly Random PointsRandom = new Random();
 
         public void InitializePoints()
         {
@@ -22,11 +20,11 @@ namespace Core.Controllers
             var currentPoints = _remainingPoints;
             while (currentPoints > 0)
             {
-                Random rnd = new Random();
-                int face = rnd.Next(6);
-                int posX = rnd.Next(_size);
-                int posY = rnd.Next(_size);
-                int points = rnd.Next(100);
+                int face = PointsRandom.Next(6);
+                int posX = PointsRandom.Next(_size);
+                int posY = PointsRandom.Next(_size);
+                int points = PointsRandom.Next(100);
+                
                 if (points < 50)
                 {
                     points = 1;

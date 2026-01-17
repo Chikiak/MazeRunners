@@ -7,25 +7,30 @@ using Managers;
 
 namespace Core.Controllers
 {
+    /// <summary>
+    /// Generates maze layouts using recursive backtracking algorithm.
+    /// </summary>
     public class MazeGenerator : IMazeGenerator
     {
+        private const int NumberOfTrapTypes = 4; // Spikes, Teleport, AffectStats, Freeze
+        
         public Dictionary<Direction, (int x, int y)> _directionsDelta { get; }
 
-        public ICell[,] GenerateMaze(int width, int height, int trapChance, int cycleChance)
+        public ICell[,] GenerateMaze(int width, int height, int trapChance, int cycleChance = 20)
         {
             _width = width;
             _height = height;
             _cycleChance = cycleChance;
-            _trapGenerator = new TrapGenerator(width, _random, 3, trapChance);
+            _trapGenerator = new TrapGenerator(width, _random, NumberOfTrapTypes, trapChance);
             
             return GenerateFace();
         }
 
         private TrapGenerator _trapGenerator;
-        private Random _random;
+        private readonly Random _random;
         private int _cycleChance;
-        private int[] _dx = { 0, 0, -1, 1 };
-        private int[] _dy = { -1, 1, 0, 0 };
+        private readonly int[] _dx = { 0, 0, -1, 1 };
+        private readonly int[] _dy = { -1, 1, 0, 0 };
 
         private int _width;
         private int _height;
@@ -51,14 +56,8 @@ namespace Core.Controllers
             {
                 for (int y = 0; y < _height; y++)
                 {
-                    cells[x, y] = trapMatrix[x, y] switch
-                    {
-                        TrapType.Nothing => new Cell((x, y), TrapType.Nothing),
-                        TrapType.Spikes => new Cell((x, y), TrapType.Spikes),
-                        TrapType.Teleport => new Cell((x, y), TrapType.Teleport),
-                        TrapType.AffectStats => new Cell((x, y), TrapType.AffectStats),
-                        _ => throw new Exception($"Unexpected trap type {trapMatrix[x, y]}")
-                    };
+                    // All trap types are handled - simply create cell with the trap type from matrix
+                    cells[x, y] = new Cell((x, y), trapMatrix[x, y]);
                 }
             }
             
@@ -67,6 +66,7 @@ namespace Core.Controllers
             
             return cells;
         }
+        
         private void RecursiveMaze(int x, int y, ICell[,] cells, bool[,] visited)
         {
             ICell currentCell = cells[x, y];

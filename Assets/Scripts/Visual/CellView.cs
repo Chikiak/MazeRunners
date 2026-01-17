@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Core.Controllers;
 using Core.Interface.Controllers;
 using Core.Interface.Models;
 using Core.Interface.Visual;
@@ -24,20 +23,19 @@ namespace Visual
             LoadDictionary();
             LoadPieceDictionary();
         }
+        
         public override void UpdateCell(ICell cell)
         {
             var handle = selectableLayout.GetComponent<HandleSelectCell>();
             if (cell.Position.x % 2 == cell.Position.y % 2)
             {
                 floor.GetComponent<Image>().color = new Color32(50, 125, 50, 175);
-                
             }
 
-            bool[] wallStates = new bool[] { true,true,true,true };
+            bool[] wallStates = new bool[] { true, true, true, true };
             foreach (var wall in cell.Walls)
             {
                 wallStates[(int)wall.Key] = wall.Value;
-                
             }
             for (int i = 0; i < 4; i++)
             {
@@ -52,20 +50,42 @@ namespace Visual
             {
                 selectableLayout.SetActive(false);
             }
-            switch (cell.Trap.TrapType)
-            {
-                case TrapType.Nothing:
-                    customFloor.GetComponent<Image>().color = new Color32(50, 125, 50, 0);
-                    break;
-                case TrapType.Spikes:
-                    customFloor.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
-                    customFloor.GetComponent<Image>().sprite = TrapSpritesDict[cell.Trap.TrapType];
-                    break;
-                default:
-                    throw new Exception($"CellView: Invalid trap type: {cell.Trap.TrapType}");
-            }
+            
+            UpdateTrapView(cell.Trap);
             UpdatePiecesInCell(PieceManager.PiecesMatrix[cell.Position.x, cell.Position.y]);
             UpdatePointsView(cell.Points);
+        }
+
+        private void UpdateTrapView(ITrap trap)
+        {
+            var customFloorImage = customFloor.GetComponent<Image>();
+            
+            switch (trap.TrapType)
+            {
+                case TrapType.Nothing:
+                    customFloorImage.color = new Color32(50, 125, 50, 0);
+                    break;
+                case TrapType.Spikes:
+                    customFloorImage.color = new Color32(255, 255, 255, 255);
+                    if (TrapSpritesDict.TryGetValue(trap.TrapType, out var spikesSprite))
+                        customFloorImage.sprite = spikesSprite;
+                    break;
+                case TrapType.Teleport:
+                    customFloorImage.color = new Color32(100, 100, 255, 200);
+                    if (TrapSpritesDict.TryGetValue(trap.TrapType, out var teleportSprite))
+                        customFloorImage.sprite = teleportSprite;
+                    break;
+                case TrapType.AffectStats:
+                    customFloorImage.color = new Color32(150, 50, 150, 200);
+                    if (TrapSpritesDict.TryGetValue(trap.TrapType, out var poisonSprite))
+                        customFloorImage.sprite = poisonSprite;
+                    break;
+                case TrapType.Freeze:
+                    customFloorImage.color = new Color32(100, 200, 255, 200);
+                    if (TrapSpritesDict.TryGetValue(trap.TrapType, out var freezeSprite))
+                        customFloorImage.sprite = freezeSprite;
+                    break;
+            }
         }
 
         private void UpdatePiecesInCell(List<IPieceController> pieceControllers)
@@ -74,15 +94,19 @@ namespace Visual
             if (pieceControllers == null || pieceControllers.Count == 0) return;
             foreach (var pieceController in pieceControllers)
             {
-                //Agregar tokens
-                var viewPrefab = PrefabDictionary[pieceController.PieceModel.PieceType];
+                if (!PrefabDictionary.TryGetValue(pieceController.PieceModel.PieceType, out var viewPrefab))
+                {
+                    Debug.LogWarning($"No prefab found for piece type: {pieceController.PieceModel.PieceType}");
+                    continue;
+                }
+                
                 var newPiece = Instantiate(viewPrefab, piecesParent.transform);
                 _piecesView.Add(newPiece);
                 var view = newPiece.GetComponent<PieceView>();
                 view.Initialize(pieceController);
                 view.UpdateVisuals();
                 
-                //Cambiarles el color en dependencia del jugador
+                // Change color based on player
                 var image = view.PieceImage;
                 image.color = pieceController.PlayerID switch
                 {
@@ -92,10 +116,12 @@ namespace Visual
                 };
             }
         }
+        
         private void UpdatePointsView(int points)
         {
             var pointsImage = pointsView.GetComponent<Image>();
             if (pointsImage == null) return;
+            
             if (points <= 0)
             {
                 pointsImage.color = new Color(1f, 1f, 1f, 0f);

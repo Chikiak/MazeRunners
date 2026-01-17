@@ -7,12 +7,14 @@
         Left, 
         Right
     }
+    
     public enum TrapType
     {
         Nothing,
         Spikes,
         Teleport,
-        AffectStats
+        AffectStats,
+        Freeze
     }
 
     public enum PieceType
@@ -22,12 +24,16 @@
         Lancer,
         Gladiator,
         Thief,
-        Explorer
+        Explorer,
+        Archer,
+        Tank
     }
 
     public enum StatusEffect
     {
         None,
+        Frozen,
+        Poisoned
     }
 
     public enum PlayerID
@@ -49,6 +55,7 @@
         Move,
         UseAbility,
     }
+    
     public enum GameStates
     {
         Starting,
