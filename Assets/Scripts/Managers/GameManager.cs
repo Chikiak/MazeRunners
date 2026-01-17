@@ -85,6 +85,19 @@ namespace Managers
         private void Start()
         {
             SubscribeToActions();
+            
+            // Check if mazeView is assigned, if not attempt to find it
+            if (mazeView == null)
+            {
+                mazeView = FindObjectOfType<AMazeView>();
+                if (mazeView == null)
+                {
+                    Debug.LogError("GameManager: mazeView is not assigned and could not be found in the scene. Please assign it in the Inspector.");
+                    return;
+                }
+                Debug.LogWarning("GameManager: mazeView was not assigned in Inspector, but was found in the scene.");
+            }
+            
             mazeView.InitializeMaze(mazeSize);
             InitializeMaze();
             OnGenerateNewMaze?.Invoke();
