@@ -40,7 +40,7 @@ namespace Visual.Selection
             }
             
             _selectPanelInstance = Instantiate(_selectionPanel, transform);
-            _selectionPanel.SetActive(true);
+            _selectPanelInstance.SetActive(true);
             _actionsPanelInstance = Instantiate(_actionsPanel, transform);
             _actionsPanelInstance.SetActive(false);
             
