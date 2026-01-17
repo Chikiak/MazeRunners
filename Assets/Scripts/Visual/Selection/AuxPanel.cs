@@ -23,6 +23,22 @@ namespace Visual.Selection
         
         private void OnEnable()
         {
+            // Check if _selectionPanel reference is valid
+            if (_selectionPanel == null)
+            {
+                Debug.LogError("AuxPanel: _selectionPanel is not assigned or references a destroyed object. Please assign it in the Inspector.");
+                enabled = false;
+                return;
+            }
+            
+            // Check if _actionsPanel reference is valid
+            if (_actionsPanel == null)
+            {
+                Debug.LogError("AuxPanel: _actionsPanel is not assigned or references a destroyed object. Please assign it in the Inspector.");
+                enabled = false;
+                return;
+            }
+            
             _selectPanelInstance = Instantiate(_selectionPanel, transform);
             _selectionPanel.SetActive(true);
             _actionsPanelInstance = Instantiate(_actionsPanel, transform);
